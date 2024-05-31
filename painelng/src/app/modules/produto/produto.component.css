@@ -1,0 +1,13 @@
+:host ::ng-deep .p-datatable-thead>tr>th{ 
+    height: 20px;
+    background-color: white;
+}
+
+:host ::ng-deep .p-datatable-thead {
+     margin: 2rem;
+}
+:host ::ng-deep .p-table{
+    min-width: 250px;
+    min-height: 250px;
+    
+}

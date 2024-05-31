@@ -1,0 +1,61 @@
+/* You can add global styles to this file, and also import other style files */
+* {
+    box-sizing: border-box !important;
+}
+
+html,
+body {
+    width: 100vw;
+    height: 100vh;
+    font-size: 13px !important;
+    overflow: hidden;
+    position: relative; 
+}
+
+cmp-template {
+    display: flex;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+cmp-nav {
+    height: 100%;
+}
+
+cmp-main {
+    padding: 3rem;
+    height: 100%;
+    width: 100%;
+}
+
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 0;
+}
+
+.field>label {
+    font-style: bold !important;
+    font-weight: 700 !important;
+}
+
+.p-button-label {
+    margin-left: 0.5rem;
+}
+
+cmp-produto {
+    height: 100%;
+}
+cmp-home{
+    height: 100%;
+}
+
+.p-dialog-title{
+    font-style: bold !important;
+    font-weight: 750 !important;
+}
+.p-card{
+    height: 100%;
+}
