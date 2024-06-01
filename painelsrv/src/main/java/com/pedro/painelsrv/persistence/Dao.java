@@ -21,6 +21,11 @@ public class Dao<T> {
 		return t;
 	}
 
+	public T merge(T t) {
+		em.merge(t);
+		return t;
+	}
+
 	@SuppressWarnings("unchecked")
 	public List<T> getList() {
 
@@ -34,14 +39,15 @@ public class Dao<T> {
 		}
 		return query.getResultList();
 	}
+
 	@SuppressWarnings("unchecked")
-	public List<T> getListByCond( String cond) {
-		
+	public List<T> getListByCond(String cond) {
+
 		Query query = null;
 		try {
 			Entity annotetiopn = clazz.getAnnotation(Entity.class);
 			query = em.createQuery("select o from " + annotetiopn.name() + " o where " + cond, clazz);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -54,8 +60,8 @@ public class Dao<T> {
 
 	}
 
-	public void delete(T entity) {
-		em.remove(entity);
+	public void delete(Object pk) {
+		em.remove(getEntity(pk));
 	}
 
 	public T getEntity(Object pk) {
@@ -63,12 +69,16 @@ public class Dao<T> {
 	}
 
 	public Integer getNextPk(String pk) {
+		return getMaxInt(pk) + 1;
+	}
+
+	public Integer getMaxInt(String pk) {
 
 		Query query = em.createQuery("select max(" + pk + ") from " + clazz.getName());
 		Object cod = query.getSingleResult();
 
 		if (cod == null)
-			return 0;
+			return 1;
 
 		if (cod instanceof Integer)
 			return (Integer) cod;

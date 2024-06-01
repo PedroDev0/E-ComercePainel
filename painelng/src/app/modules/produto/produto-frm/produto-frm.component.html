@@ -1,56 +1,39 @@
-<div class="flex gap-2">
+<div class="flex flex-column h-full gap-3">
+    <div class="flex-1">
+        <p-card [formGroup]="form">
 
-    <div class="flex-1 w-full p-2 gap-2 border-200 border-3 border-round surface-overlay" [formGroup]="form">
+            <div class="flex gap-2">
+                <div class="field">
+                    <label>Cód. Produto</label>
+                    <p-inputNumber formControlName="id" mode="decimal" [maxlength]="9"   cmpDisableListener [disableValue]="true" />
+                </div>
 
-        <div class="flex gap-2">
-            <div class="field">
-                <label>Cód. Produto</label>
-                <p-inputNumber formControlName="id" mode="decimal" [maxlength]="9"  cmpDisableListener [disableValue]="true"/>
+                <div class="field w-full">
+                    <label>Descrição</label>
+                    <input pInputText formControlName="descricao"  />
+                </div>
             </div>
-
+            <div class="flex gap-2">
+                <div class="field">
+                    <label>Preço Compra</label>
+                    <p-inputNumber mode="currency" formControlName="precoCompra" [useGrouping]="false" currency="BRL"
+                    locale="pt-BR" cmpDisableListener />
+                </div>
+                <div class="field">
+                    <label>Preço Venda</label>
+                    <p-inputNumber mode="currency" formControlName="precoVenda" [useGrouping]="false" currency="BRL"
+                    locale="pt-BR" cmpDisableListener  />
+                </div>
+            </div>
             <div class="field w-full">
-                <label>Descrição</label>
-                <input pInputText  formControlName="descricao" cmpDisableListener [disableValue]="!enable"/>
+                <label>Link</label>
+                <input pInputText formControlName="uriImage"  />
             </div>
-        </div>
-        <div class="flex gap-2">
-            <div class="field">
-                <label>Preço Compra</label>
-                <p-inputNumber mode="currency"  formControlName="precoCompra"   [useGrouping]="false" currency="BRL" locale="pt-BR"  cmpDisableListener [disableValue]="!enable"/>
-            </div>
-            <div class="field">
-                <label>Preço Venda</label>
-                <p-inputNumber mode="currency" formControlName="precoVenda"    [useGrouping]="false" currency="BRL" locale="pt-BR" cmpDisableListener [disableValue]="!enable"/>
-            </div>
-        </div>
-
+        </p-card>
     </div>
-    <div class="gap-2 p-3 border-200 border-3 border-round surface-overlay">
-        <div class="mb-2">
-            <button class="w-full" pButton label="Novo" icon="pi pi-plus" [disabled]="enable"></button>
-
-        </div>
-        <div class="mb-5">
-            <button class=" w-full" pButton label="Alterar" icon="pi pi-pencil" (click)="alterar()" [disabled]="enable"></button>
-
-        </div>
-        <div class="mb-2">
-            <button class=" w-full" pButton label="Salvar" icon="pi pi-check" [disabled]="!enable" (click)="salvar()"></button>
-
-        </div>
-        <div class="mb-6">
-            <button class="w-full" pButton label="Cancelar" icon="pi pi-times" (click)="cancelar()"  [disabled]="!enable"></button>
-
-        </div>
-        <div class="mb-6">
-            <button class="w-full p-button-danger" pButton label="Apagar" icon="pi pi-trash"  [disabled]="enable"></button>
-
-        </div>
-      
-        <div>
-            <button class="w-full" pButton label="Fechar" icon="pi pi-times-circle" (click)="close()"  [disabled]="enable"></button>
-
-        </div>
-
+    <div class="flex justify-content-end align-items-center gap-2">
+        <button pButton class="p-button-danger" icon="pi pi-trash" [disabled]="novo" title="Apagar"  (click)="apagar()"></button>
+        <button pButton  icon="pi pi-times" (click)="cancelar()" title="Cancelar" ></button>
+        <button pButton icon="pi pi-check" [disabled]="!form.valid"  title="Salvar" (click)="salvar()"></button>
     </div>
 </div>

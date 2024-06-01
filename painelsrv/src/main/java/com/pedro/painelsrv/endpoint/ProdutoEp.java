@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -29,9 +30,14 @@ public class ProdutoEp {
 	}
 
 	@PUT
-	@Path("/create")
+	@Path("/create-or-update")
 	public Produto create(Produto entity) {
 		return prodBss.create(entity);
+	}
+	
+	@DELETE
+	public void delete(Integer pk) {
+		 prodBss.delete(pk);
 	}
 
 }

@@ -11,21 +11,11 @@ import javax.persistence.Table;
 @Table(name = "PRODUTO")
 public class Produto {
 
-
 	private Integer id;
-	
 	private String descricao;
-	
 	private BigDecimal precoCompra;
-	
 	private BigDecimal precoVenda;
-
-	
-	public Produto(String descricao, BigDecimal precoCompra, BigDecimal precoVenda) {
-		this.descricao = descricao;
-		this.precoCompra = precoCompra;
-		this.precoVenda = precoVenda;
-	}
+	private String uriImage;
 
 	public Produto() {
 	}
@@ -67,7 +57,13 @@ public class Produto {
 		this.precoVenda = precoVenda;
 	}
 
+	@Column(name = "URI_IMAGE")
+	public String getUriImage() {
+		return uriImage;
+	}
 
-	
-	
+	public void setUriImage(String uriImage) {
+		this.uriImage = uriImage;
+	}
+
 }

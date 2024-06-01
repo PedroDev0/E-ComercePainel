@@ -18,14 +18,16 @@ public class ProdutoBss extends Bss<Produto> {
 
 	public Produto create(Produto entity) {
 
-		entity.setId(dao.getNextPk("id"));
-		return dao.persit(entity);
+		if (entity.getId() == null ||  entity.getId() < 0) {
+			entity.setId(dao.getNextPk("id"));			
+		}
+		return dao.merge(entity);
 	}
 
 	public List<Produto> getListByCond(String id, String descricao, String precoCompra, String precoVenda) {
 
 		StringBuilder condicao = new StringBuilder();
-		
+
 		condicao.append(" o.id is not null");
 		if (id != null && !id.equalsIgnoreCase("null")) {
 			condicao.append(" and o.id = " + id);
@@ -45,6 +47,10 @@ public class ProdutoBss extends Bss<Produto> {
 		}
 
 		return dao.getListByCond(condicao.toString());
+	}
+
+	public void delete(Integer pk) {
+		dao.delete(pk);
 	}
 
 }

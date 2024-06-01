@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { FormGroupModel } from 'src/app/model/form-group.model';
 import Produto from 'src/app/model/produto.model';
+import { ProdutoService } from '../produto.service';
+import { FormGroupModel } from 'src/app/model/form-group.model';
 
 @Component({
   selector: 'cmp-produto-frm',
@@ -10,22 +11,24 @@ import Produto from 'src/app/model/produto.model';
   styleUrls: ['./produto-frm.component.css']
 })
 export class ProdutoFrmComponent implements OnInit {
+  apagar() {
+    throw new Error('Method not implemented.');
+  }
 
 
-  enable: boolean = false;
   novo: boolean = false;
 
-  form = new FormGroupModel<Produto>(new Produto(),new Map<string, any>([
-    ["descricao", [Validators.maxLength(2)]],
-    ["precoCompra", [Validators.min(0.1)]],
-    ["precoVenda", [Validators.max(0.1)]]
-  ] ));
+  form = new FormGroupModel<Produto>(new Produto(), new Map<string, any>([
+    ["descricao", [Validators.required, Validators.maxLength(250), Validators.minLength(5)]],
+    ["precoCompra", [Validators.required, Validators.min(0.01)]],
+    ["precoVenda", [Validators.required, Validators.min(0.01)]],
+    ["uriImage", [Validators.required, Validators.min(0.01)]]
+  ]));
 
-  constructor(private ref: DynamicDialogRef, private config: DynamicDialogConfig) {
+  constructor(private ref: DynamicDialogRef, private config: DynamicDialogConfig, private service: ProdutoService) {
 
   }
   ngOnInit(): void {
-    this.enable = this.config?.data?.enable;
     this.novo = this.config?.data?.novo;
 
     if (this.config?.data?.produto) {
@@ -34,42 +37,21 @@ export class ProdutoFrmComponent implements OnInit {
   }
 
   cancelar() {
-    if (this.novo) {
-      this.ref.close();
-      return;
-    }
+      this.close();
 
-    this.enable = false;
-    // this.form.rel
   }
 
   salvar() {
 
-    if (this.form.controls.descricao.invalid) {
-      
-
+    if (this.form.valid) {
+      this.service.createOrUpdate(this.form.getRawValue()).subscribe(entity => {
+        this.form.patchValue(entity);
+      });
     }
-  }
-  validaForms(): boolean {
 
-    if (this.form.controls.descricao) {
-
-    }
-    if (this.form.controls.descricao) {
-
-    }
-    if (this.form.controls.descricao) {
-
-    }
-    if (this.form.controls.descricao) {
-
-    }
-      return true;
   }
 
-  alterar() {
-    this.enable = true;
-  }
+
 
   close() {
     this.ref.close();
