@@ -18,6 +18,7 @@ export class ProdutoComponent {
   products: Produto[] = [];
   form = new FormGroupModel<Produto>(new Produto());
   selectedProduct: any;
+  sidebarVisible2: boolean = false;
 
   constructor(private service: ProdutoService, private utilService: UtilService) {
 

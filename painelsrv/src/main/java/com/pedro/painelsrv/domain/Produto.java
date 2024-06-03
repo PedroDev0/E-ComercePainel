@@ -1,6 +1,7 @@
 package com.pedro.painelsrv.domain;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +17,7 @@ public class Produto {
 	private BigDecimal precoCompra;
 	private BigDecimal precoVenda;
 	private String uriImage;
+	private Date dataCadastro;
 
 	public Produto() {
 	}
@@ -66,4 +68,14 @@ public class Produto {
 		this.uriImage = uriImage;
 	}
 
+	@Column(name = "DATA_CADASTRO")
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+
+	
 }

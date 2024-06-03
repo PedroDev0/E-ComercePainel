@@ -9,8 +9,11 @@ import { TagModule } from 'primeng/tag';
 import { RatingModule } from 'primeng/rating';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DisableListenerDirective } from './directives/disable-listener/disable-listener.directive';
 import { DisableListenerModule } from './directives/disable-listener/disable-listener.module';
+import { TabViewModule } from 'primeng/tabview';
+import { ImageModule } from 'primeng/image';
+import { SidebarModule } from 'primeng/sidebar';
+import { CalendarModule } from 'primeng/calendar';
 
 
 
@@ -29,8 +32,11 @@ import { DisableListenerModule } from './directives/disable-listener/disable-lis
     InputTextModule,
     FormsModule,
     ReactiveFormsModule,
-    DisableListenerModule
-    
+    DisableListenerModule,
+    TabViewModule,
+    ImageModule,
+    SidebarModule,
+    CalendarModule
   ],
   imports: [
     CommonModule,
@@ -43,7 +49,11 @@ import { DisableListenerModule } from './directives/disable-listener/disable-lis
     InputTextModule,
     FormsModule,
     ReactiveFormsModule,
-    DisableListenerModule
+    DisableListenerModule,
+    TabViewModule,
+    ImageModule,
+    SidebarModule,
+    CalendarModule
     
   ]
 })

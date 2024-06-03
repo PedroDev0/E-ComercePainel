@@ -1,5 +1,6 @@
 package com.pedro.painelsrv.business;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -19,6 +20,7 @@ public class ProdutoBss extends Bss<Produto> {
 	public Produto create(Produto entity) {
 
 		if (entity.getId() == null ||  entity.getId() < 0) {
+			entity.setDataCadastro(new Date());
 			entity.setId(dao.getNextPk("id"));			
 		}
 		return dao.merge(entity);
@@ -28,7 +30,7 @@ public class ProdutoBss extends Bss<Produto> {
 
 		StringBuilder condicao = new StringBuilder();
 
-		condicao.append(" o.id is not null");
+		condicao.append(" o.id <> 0");
 		if (id != null && !id.equalsIgnoreCase("null")) {
 			condicao.append(" and o.id = " + id);
 		}

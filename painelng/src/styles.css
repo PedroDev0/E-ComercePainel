@@ -41,6 +41,10 @@ cmp-main {
     font-weight: 700 !important;
 }
 
+.field>div>span {
+    font-style: bold !important;
+    font-weight: 600 !important;
+}
 .p-button-label {
     margin-left: 0.5rem;
 }
@@ -61,4 +65,17 @@ cmp-home{
 }
 .p-dialog-content {
 padding: 0.5rem;
+}
+.p-sidebar-right {
+    width: 35rem;
+}
+.p-inputnumber{
+    width: 100%;
+}
+.p-calendar{
+    width: 100%;
+}
+.p-calendar>.p-button>.p-button-icon-only {
+    width: 35px;
+    padding: 0;
 }

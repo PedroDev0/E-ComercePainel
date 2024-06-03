@@ -1,39 +1,51 @@
 <div class="flex flex-column h-full gap-3">
     <div class="flex-1">
-        <p-card [formGroup]="form">
 
-            <div class="flex gap-2">
-                <div class="field">
-                    <label>Cód. Produto</label>
-                    <p-inputNumber formControlName="id" mode="decimal" [maxlength]="9"   cmpDisableListener [disableValue]="true" />
-                </div>
+            <p-tabView [formGroup]="form">
+                <p-tabPanel header="Dados Básicos">
+                    <ng-template pTemplate="content"> 
+                    <div class="flex gap-2">
+                        <div class="field">
+                            <label>Cód. Produto</label>
+                            <p-inputNumber formControlName="id" mode="decimal" [maxlength]="9" cmpDisableListener
+                                [disableValue]="true" />
+                        </div>
 
-                <div class="field w-full">
-                    <label>Descrição</label>
-                    <input pInputText formControlName="descricao"  />
-                </div>
-            </div>
-            <div class="flex gap-2">
-                <div class="field">
-                    <label>Preço Compra</label>
-                    <p-inputNumber mode="currency" formControlName="precoCompra" [useGrouping]="false" currency="BRL"
-                    locale="pt-BR" cmpDisableListener />
-                </div>
-                <div class="field">
-                    <label>Preço Venda</label>
-                    <p-inputNumber mode="currency" formControlName="precoVenda" [useGrouping]="false" currency="BRL"
-                    locale="pt-BR" cmpDisableListener  />
-                </div>
-            </div>
-            <div class="field w-full">
-                <label>Link</label>
-                <input pInputText formControlName="uriImage"  />
-            </div>
-        </p-card>
+                        <div class="field w-full">
+                            <label>Descrição</label>
+                            <input pInputText formControlName="descricao" />
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <div class="field">
+                            <label>Preço Compra</label>
+                            <p-inputNumber mode="currency" formControlName="precoCompra" [useGrouping]="false"
+                                currency="BRL" locale="pt-BR" cmpDisableListener />
+                        </div>
+                        <div class="field">
+                            <label>Preço Venda</label>
+                            <p-inputNumber mode="currency" formControlName="precoVenda" [useGrouping]="false"
+                                currency="BRL" locale="pt-BR" cmpDisableListener />
+                        </div>
+                    </div>
+                </ng-template>
+                </p-tabPanel>
+                <p-tabPanel header="Imagem">
+                    <ng-template pTemplate="content">
+                        <div class="field w-full">
+                            <label>Link</label>
+                            <input pInputText formControlName="uriImage" />
+                        </div>
+                        <p-image  [src]="form.controls?.uriImage.getRawValue()" alt="Image" width="100px" [preview]="true"></p-image>
+                    </ng-template>
+                </p-tabPanel>
+            </p-tabView>
+
     </div>
     <div class="flex justify-content-end align-items-center gap-2">
-        <button pButton class="p-button-danger" icon="pi pi-trash" [disabled]="novo" title="Apagar"  (click)="apagar()"></button>
-        <button pButton  icon="pi pi-times" (click)="cancelar()" title="Cancelar" ></button>
-        <button pButton icon="pi pi-check" [disabled]="!form.valid"  title="Salvar" (click)="salvar()"></button>
+        <button pButton class="p-button-danger" icon="pi pi-trash" [disabled]="novo" title="Apagar"
+            (click)="apagar()"></button>
+        <button pButton icon="pi pi-times" (click)="cancelar()" title="Cancelar"></button>
+        <button pButton icon="pi pi-check" [disabled]="!form.valid" title="Salvar" (click)="salvar()"></button>
     </div>
 </div>

@@ -1,36 +1,67 @@
 <div class="flex flex-column h-full gap-2">
-    <p-card [formGroup]="form"  header="Produtos">
-        <div class="flex gap-2">
-            <div class="field">
-                <label>Cód. Produto</label>
-                <p-inputNumber formControlName="id" mode="decimal" [maxlength]="9" />
-            </div>
-            <div class="field w-full">
-                <label>Descrição</label>
-                <input formControlName="descricao" pInputText />
-            </div>
-            <div class="field">
-                <label>Preço Compra</label>
-                <p-inputNumber formControlName="precoCompra" mode="currency" [useGrouping]="false" currency="BRL"
-                    locale="pt-BR" />
-            </div>
-            <div class="field">
-                <label>Preço Venda</label>
-                <p-inputNumber formControlName="precoVenda" mode="currency" [useGrouping]="false" currency="BRL"
-                    locale="pt-BR" />
-            </div>
-        </div>
-    </p-card>
-    <div class="flex justify-content-end gap-2">
-        <button class="mb-2" pButton icon="pi pi-search" (click)="getList()"></button>
-        <button class="mb-2" pButton icon="pi pi-plus" (click)="showFrm()"></button>
-    </div>
 
     <p-card class="flex-1  w-full">
+        <p-sidebar [(visible)]="sidebarVisible2" position="right">
+            <form [formGroup]="form" class="gap-2">
+                <div class="flex gap-2">
+                    <div class="field">
+                        <label>Cód. Produto</label>
+                        <p-inputNumber formControlName="id" mode="decimal" [maxlength]="9" />
+                    </div>
+                    <div class="field w-full">
+                        <label>Descrição</label>
+                        <input formControlName="descricao" pInputText />
+                    </div>
+                </div>
+                <div class="flex w-full">
+                    <div class="field w-full">
+                        <label>Data Cadastro</label>
+                        <div class="flex gap-2 align-items-center w-full">
+                            <p-calendar class="w-full" formControlName="dataCadastro" [showIcon]="true"></p-calendar>
+                            <span>até</span>
+                            <p-calendar  class="w-full" formControlName="dataCadastro" [showIcon]="true" ></p-calendar>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="flex gap-2 ">
+                    <div class="field w-full">
+                        <label>Preço Compra</label>
+                        <p-inputNumber formControlName="precoCompra" mode="currency" [useGrouping]="false"
+                            currency="BRL" locale="pt-BR" />
+                    </div>
+                    <div class="field w-full">
+                        <label>Preço Venda</label>
+                        <p-inputNumber formControlName="precoVenda" mode="currency" [useGrouping]="false" currency="BRL"
+                            locale="pt-BR" />
+                    </div>
+                    <div class="flex justify-content-end">
+                        <button pButton icon="pi pi-search" title="Pesquisar" (click)="getList()"></button>
+                    </div>
+                </div>
+
+            </form>
+        </p-sidebar>
+        <div class=" flex justify-content-between">
+            <div>
+                <h1>
+                    Produtos
+                </h1>
+            </div>
+            <div class="flex gap-2">
+                <button class="mb-2" pButton icon="pi pi-search" label="Pesquisar" (click)="getList()"></button>
+                <button class="mb-2" pButton icon="pi pi-filter" label="Filtros"
+                    (click)="sidebarVisible2 = true"></button>
+                <button class="mb-2" pButton icon="pi pi-plus" label="Novo" (click)="showFrm()"></button>
+            </div>
+        </div>
+
         <p-table [value]="products" [responsiveLayout]="'scroll'" selectionMode="single" dataKey="id">
             <ng-template pTemplate="header">
                 <tr>
                     <th>Cód. Produto</th>
+                    <th>Imagem</th>
                     <th>Descrição</th>
                     <th>Preço Compra</th>
                     <th>Preço Venda</th>
@@ -39,6 +70,7 @@
             <ng-template pTemplate="body" let-product>
                 <tr [pSelectableRow]="product" (dblclick)="doubleClickRow(product)">
                     <td>{{ product.id }}</td>
+                    <td> <img [src]="product.uriImage" [alt]="product.name" width="100" class="shadow-4" /></td>
                     <td>{{ product.descricao }}</td>
                     <td>{{ product.precoCompra }}</td>
                     <td>{{ product.precoVenda }}</td>

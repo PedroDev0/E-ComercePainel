@@ -11,9 +11,7 @@ import { FormGroupModel } from 'src/app/model/form-group.model';
   styleUrls: ['./produto-frm.component.css']
 })
 export class ProdutoFrmComponent implements OnInit {
-  apagar() {
-    throw new Error('Method not implemented.');
-  }
+ 
 
 
   novo: boolean = false;
@@ -30,7 +28,6 @@ export class ProdutoFrmComponent implements OnInit {
   }
   ngOnInit(): void {
     this.novo = this.config?.data?.novo;
-
     if (this.config?.data?.produto) {
       this.form.patchValue(this.config?.data?.produto)
     }
@@ -38,7 +35,6 @@ export class ProdutoFrmComponent implements OnInit {
 
   cancelar() {
       this.close();
-
   }
 
   salvar() {
@@ -50,7 +46,10 @@ export class ProdutoFrmComponent implements OnInit {
     }
 
   }
-
+  
+  apagar() {
+    throw new Error('Method not implemented.');
+  }
 
 
   close() {
