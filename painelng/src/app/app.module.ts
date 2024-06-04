@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TempladeModule } from './shared/templade/template.module';
-import { registerLocaleData } from '@angular/common';
+import { DatePipe, registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 
 registerLocaleData(localePt);
@@ -24,7 +24,8 @@ registerLocaleData(localePt);
     BrowserAnimationsModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    TempladeModule
+    TempladeModule,
+    DatePipe
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR' },

@@ -25,8 +25,9 @@ public class ProdutoEp {
 
 	@GET
 	public List<Produto> getListProd(@QueryParam("id") String id, @QueryParam("descricao") String descricao,
-			@QueryParam("precoCompra") String precoCompra, @QueryParam("precoVenda") String precoVenda) {
-		return prodBss.getListByCond(id,descricao,precoCompra,precoVenda);
+			@QueryParam("precoCompra") String precoCompra, @QueryParam("precoVenda") String precoVenda,
+			@QueryParam("dataDe") String dataDe, @QueryParam("dataAte") String dataAte) {
+		return prodBss.getListByCond(id, descricao, precoCompra, precoVenda, dataDe, dataAte);
 	}
 
 	@PUT
@@ -34,10 +35,10 @@ public class ProdutoEp {
 	public Produto create(Produto entity) {
 		return prodBss.create(entity);
 	}
-	
+
 	@DELETE
 	public void delete(Integer pk) {
-		 prodBss.delete(pk);
+		prodBss.delete(pk);
 	}
 
 }

@@ -1,4 +1,4 @@
-import { PT_BR } from './langs/pt-br';
+import { PT_BR } from './core/langs/pt-br';
 import { Component, OnInit } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 

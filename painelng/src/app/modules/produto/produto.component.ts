@@ -4,19 +4,21 @@ import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { UtilService } from 'src/app/shared/services/util.service';
 import { ProdutoFrmComponent } from './produto-frm/produto-frm.component';
 import { ProdutoService } from './produto.service';
-import Produto from 'src/app/model/produto.model';
-import { FormGroupModel } from 'src/app/model/form-group.model';
+import Produto from 'src/app/core/model/produto.model';
+import { FormGroupModel } from 'src/app/core/model/form-group.model';
+import { FiltrosProd } from './filttro.prod.model';
 
 @Component({
   selector: 'cmp-produto',
   templateUrl: './produto.component.html',
   styleUrls: ['./produto.component.css']
 })
+
 export class ProdutoComponent {
 
 
   products: Produto[] = [];
-  form = new FormGroupModel<Produto>(new Produto());
+  form = new FormGroupModel<FiltrosProd>(new FiltrosProd());
   selectedProduct: any;
   sidebarVisible2: boolean = false;
 

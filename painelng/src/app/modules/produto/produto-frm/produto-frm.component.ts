@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import Produto from 'src/app/model/produto.model';
+import Produto from 'src/app/core/model/produto.model';
 import { ProdutoService } from '../produto.service';
-import { FormGroupModel } from 'src/app/model/form-group.model';
+import { FormGroupModel } from 'src/app/core/model/form-group.model';
 
 @Component({
   selector: 'cmp-produto-frm',

@@ -1,6 +1,7 @@
 <div class="flex flex-column h-full gap-2">
 
     <p-card class="flex-1  w-full">
+        
         <p-sidebar [(visible)]="sidebarVisible2" position="right">
             <form [formGroup]="form" class="gap-2">
                 <div class="flex gap-2">
@@ -17,9 +18,9 @@
                     <div class="field w-full">
                         <label>Data Cadastro</label>
                         <div class="flex gap-2 align-items-center w-full">
-                            <p-calendar class="w-full" formControlName="dataCadastro" [showIcon]="true"></p-calendar>
+                            <p-calendar class="w-full" formControlName="dataDe"  dateFormat="dd/mm/yy" [showIcon]="true" dataType="string"></p-calendar>
                             <span>até</span>
-                            <p-calendar  class="w-full" formControlName="dataCadastro" [showIcon]="true" ></p-calendar>
+                            <p-calendar  class="w-full" formControlName="dataAte" dateFormat="dd/mm/yy" [showIcon]="true" dataType="string"></p-calendar>
                         </div>
                     </div>
 
