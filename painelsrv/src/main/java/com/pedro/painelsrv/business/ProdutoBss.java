@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 
 import com.pedro.painelsrv.domain.Produto;
+import com.pedro.painelsrv.util.SQLBuilder;
 
 @Stateless
 public class ProdutoBss extends Bss<Produto> {
@@ -30,35 +31,43 @@ public class ProdutoBss extends Bss<Produto> {
 	public List<Object[]> getListByCond(String id, String descricao, String precoCompra, String precoVenda,
 			String dataDe, String dataAte) {
 
-		StringBuilder condicao = new StringBuilder();
-
-		condicao.append(" o.id <> 0");
+		SQLBuilder sql = new SQLBuilder("PRODUTO");
+		//SELECIONA CAMPOS SELECT NATIVO
+		sql.appendField("PRODUTO.ID");
+		sql.appendField("PRODUTO_IMAGEM.URI_IMAGEM");
+		sql.appendField("PRODUTO.DESCRICAO");
+		sql.appendField("PRODUTO.PRECO_VENDA");
+		sql.appendField("PRODUTO.PRECO_COMPRA");
+		
+		//INCLUI OS JOINS
+		sql.appendJoin(" LEFT JOIN PRODUTO_IMAGEM ON PRODUTO.ID = PRODUTO_IMAGEM.PRODUTO_ID ");
+		
+		sql.appendWhere(" PRODUTO.ID <> 0");
 		if (id != null && !id.equalsIgnoreCase("null")) {
-			condicao.append(" and o.id = " + id);
+			sql.appendWhere(" PRODUTO.ID = " + id);
 		}
 
 		if (descricao != null && !descricao.equalsIgnoreCase("null")) {
-			condicao.append(" and upper(o.descricao) like '" + descricao.toUpperCase());
-			condicao.append("%'");
+			sql.appendWhere(" and upper(PRODUTO.DESCRICAO) like '" + descricao.toUpperCase());
+			sql.appendWhere("%'");
 		}
 
-		if (precoCompra != null && !precoCompra.equalsIgnoreCase("null")) {
-			condicao.append(" and o.precoCompra = " + precoCompra);
+		if (precoVenda != null && !precoCompra.equalsIgnoreCase("null")) {
+			sql.appendWhere(" and PRODUTO.PRECO_COMPRA= " + precoCompra);
 		}
-
 		if (precoVenda != null && !precoVenda.equalsIgnoreCase("null")) {
-			condicao.append(" and o.precoVenda = " + precoVenda);
+			sql.appendWhere(" and PRODUTO.PRECO_VENDA= " + precoVenda);
 		}
 
 		if (dataDe != null && !dataDe.equalsIgnoreCase("null")) {
-			condicao.append(" and trunc(o.dataCadastro) >= " + "to_date('" + dataDe + "', 'DD/MM/YYYY')");
+			sql.appendWhere(" and trunc(PRODUTO.DATA_CADASTRO) >= " + "to_date('" + dataDe + "', 'DD/MM/YYYY')");
 		}
 
 		if (dataAte != null && !dataAte.equalsIgnoreCase("null")) {
-			condicao.append(" and trunc(o.dataCadastro) <= " + "to_date('" + dataAte + "', 'DD/MM/YYYY')");
+			sql.appendWhere(" and trunc(PRODUTO.DATA_CADASTRO)  <= " + "to_date('" + dataAte + "', 'DD/MM/YYYY')");
 		}
 
-		return dao.getListByNativeQueryTypeless(condicao.toString());
+		return dao.getListByNativeQueryTypeless(sql.toString());
 	}
 
 	public void delete(Integer pk) {

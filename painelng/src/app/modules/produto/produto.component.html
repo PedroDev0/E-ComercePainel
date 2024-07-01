@@ -70,11 +70,11 @@
             </ng-template>
             <ng-template pTemplate="body" let-product>
                 <tr [pSelectableRow]="product" (dblclick)="doubleClickRow(product)">
-                    <td>{{ product.id }}</td>
-                    <td> <img [src]="product.uriImage" [alt]="product.name" width="100" class="shadow-4" /></td>
-                    <td>{{ product.descricao }}</td>
-                    <td>{{ product.precoCompra }}</td>
-                    <td>{{ product.precoVenda }}</td>
+                    <td>{{ product[0] }}</td>
+                    <td> <img [src]="product[1]" [alt]="product.name" width="100" class="shadow-4" /></td>
+                    <td>{{ product[2] }}</td>
+                    <td>{{ product[3] }}</td>
+                    <td>{{ product[4] }}</td>
                 </tr>
             </ng-template>
         </p-table>
