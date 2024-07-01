@@ -1,9 +1,9 @@
 <div class="flex flex-column h-full gap-3">
     <div class="flex-1">
 
-            <p-tabView [formGroup]="form">
-                <p-tabPanel header="Dados Básicos">
-                    <ng-template pTemplate="content"> 
+        <p-tabView [formGroup]="form">
+            <p-tabPanel header="Dados Básicos">
+                <ng-template pTemplate="content">
                     <div class="flex gap-2">
                         <div class="field">
                             <label>Cód. Produto</label>
@@ -12,8 +12,8 @@
                         </div>
                         <div class="field ">
                             <label>Data Cadastro</label>
-                            <p-calendar  formControlName="dataCadastro" [showIcon]="true"  cmpDisableListener
-                            [disableValue]="true"></p-calendar>
+                            <p-calendar formControlName="dataCadastro" [showIcon]="true" cmpDisableListener
+                                [disableValue]="true"></p-calendar>
                         </div>
 
                         <div class="field w-full">
@@ -34,17 +34,31 @@
                         </div>
                     </div>
                 </ng-template>
-                </p-tabPanel>
-                <p-tabPanel header="Imagem">
-                    <ng-template pTemplate="content">
-                        <div class="field w-full">
-                            <label>Link</label>
-                            <input pInputText formControlName="uriImage" />
-                        </div>
-                        <p-image  [src]="form.controls?.uriImage.getRawValue()" alt="Image" width="100px" [preview]="true"></p-image>
-                    </ng-template>
-                </p-tabPanel>
-            </p-tabView>
+            </p-tabPanel>
+            <p-tabPanel header="Imagem">
+                <ng-template pTemplate="content">
+                    <div class="field w-full">
+                        <label>Link</label>
+                        <input pInputText formControlName="uriImage" />
+                    </div>
+                    
+    
+                    <p-galleria [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '200px' }" [numVisible]="3">
+                        <ng-template pTemplate="item" let-item>
+                            <p-image [src]="form.controls?.uriImage.getRawValue()" alt="Image" width="100px" height="100px"
+                            [preview]="true"></p-image>
+                        </ng-template>
+                        <ng-template pTemplate="thumbnail" let-item>
+                            <div class="grid grid-nogutter justify-content-center">
+                                <p-image [src]="form.controls?.uriImage.getRawValue()" alt="Image" width="100px" height="100px"
+                            [preview]="true"></p-image>
+                            </div>
+                        </ng-template>
+                    </p-galleria>
+                </ng-template>
+            </p-tabPanel>
+
+        </p-tabView>
 
     </div>
     <div class="flex justify-content-end align-items-center gap-2">

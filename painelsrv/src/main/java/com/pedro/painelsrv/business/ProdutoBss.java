@@ -19,15 +19,16 @@ public class ProdutoBss extends Bss<Produto> {
 
 	public Produto create(Produto entity) {
 
-		if (entity.getId() == null ||  entity.getId() <= 0) {
+		if (entity.getId() == null || entity.getId() <= 0) {
 			entity.setDataCadastro(new Date());
-			entity.setId(dao.getNextPk("id"));			
+			entity.setId(dao.getNextPk("id"));
 		}
-		
+
 		return dao.merge(entity);
 	}
 
-	public List<Produto> getListByCond(String id, String descricao, String precoCompra, String precoVenda, String dataDe, String dataAte) {
+	public List<Produto> getListByCond(String id, String descricao, String precoCompra, String precoVenda,
+			String dataDe, String dataAte) {
 
 		StringBuilder condicao = new StringBuilder();
 
@@ -48,13 +49,13 @@ public class ProdutoBss extends Bss<Produto> {
 		if (precoVenda != null && !precoVenda.equalsIgnoreCase("null")) {
 			condicao.append(" and o.precoVenda = " + precoVenda);
 		}
-		
+
 		if (dataDe != null && !dataDe.equalsIgnoreCase("null")) {
-			condicao.append(" and trunc(o.dataCadastro) >= " +"to_date('" +dataDe+"', 'DD/MM/YYYY')");
+			condicao.append(" and trunc(o.dataCadastro) >= " + "to_date('" + dataDe + "', 'DD/MM/YYYY')");
 		}
-		
+
 		if (dataAte != null && !dataAte.equalsIgnoreCase("null")) {
-			condicao.append(" and trunc(o.dataCadastro) <= " +"to_date('" +dataAte+"', 'DD/MM/YYYY')");
+			condicao.append(" and trunc(o.dataCadastro) <= " + "to_date('" + dataAte + "', 'DD/MM/YYYY')");
 		}
 
 		return dao.getListByCond(condicao.toString());

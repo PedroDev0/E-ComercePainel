@@ -11,7 +11,7 @@ import { FormGroupModel } from 'src/app/core/model/form-group.model';
   styleUrls: ['./produto-frm.component.css']
 })
 export class ProdutoFrmComponent implements OnInit {
- 
+
 
 
   novo: boolean = false;
@@ -22,6 +22,9 @@ export class ProdutoFrmComponent implements OnInit {
     ["precoVenda", [Validators.required, Validators.min(0.01)]],
     ["uriImage", [Validators.required, Validators.min(0.01)]]
   ]));
+
+  images: any[] | undefined;
+  responsiveOptions: any[] | undefined
 
   constructor(private ref: DynamicDialogRef, private config: DynamicDialogConfig, private service: ProdutoService) {
 
@@ -34,7 +37,7 @@ export class ProdutoFrmComponent implements OnInit {
   }
 
   cancelar() {
-      this.close();
+    this.close();
   }
 
   salvar() {
@@ -46,7 +49,7 @@ export class ProdutoFrmComponent implements OnInit {
     }
 
   }
-  
+
   apagar() {
     throw new Error('Method not implemented.');
   }

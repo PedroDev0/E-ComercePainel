@@ -4,6 +4,8 @@ import { ProdutoRoutingModule } from './produto-routing.module';
 import { ProdutoComponent } from './produto.component';
 
 import { SharedModule as MyShared } from 'src/app/shared/shared.module';
+import { GalleriaModule } from 'primeng/galleria';
+
 import { ProdutoFrmComponent } from './produto-frm/produto-frm.component';
 
 
@@ -15,6 +17,7 @@ import { ProdutoFrmComponent } from './produto-frm/produto-frm.component';
   ],
   imports: [
     ProdutoRoutingModule,
+    GalleriaModule,
     MyShared
   ]
 })

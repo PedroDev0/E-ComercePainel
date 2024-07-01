@@ -16,9 +16,8 @@ public class Produto {
 	private String descricao;
 	private BigDecimal precoCompra;
 	private BigDecimal precoVenda;
-	private String uriImage;
 	private Date dataCadastro;
-
+	
 	public Produto() {
 	}
 
@@ -59,15 +58,6 @@ public class Produto {
 		this.precoVenda = precoVenda;
 	}
 
-	@Column(name = "URI_IMAGE")
-	public String getUriImage() {
-		return uriImage;
-	}
-
-	public void setUriImage(String uriImage) {
-		this.uriImage = uriImage;
-	}
-
 	@Column(name = "DATA_CADASTRO")
 	public Date getDataCadastro() {
 		return dataCadastro;
@@ -77,5 +67,5 @@ public class Produto {
 		this.dataCadastro = dataCadastro;
 	}
 
-	
+
 }
