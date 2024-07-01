@@ -45,8 +45,8 @@ public class Dao<T> {
 
 		Query query = null;
 		try {
-			Entity annotetiopn = clazz.getAnnotation(Entity.class);
-			query = em.createQuery("select o from " + annotetiopn.name() + " o where " + cond, clazz);
+			Entity annotetion = clazz.getAnnotation(Entity.class);
+			query = em.createQuery("select o from " + annotetion.name() + " o where " + cond, clazz);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -54,6 +54,12 @@ public class Dao<T> {
 		return query.getResultList();
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Object[]> getListByNativeQueryTypeless(String condicao) {
+
+		Query query = em.createNativeQuery(condicao);
+		return query.getResultList();
+	}
 	public T update(T entity) {
 
 		return em.merge(entity);

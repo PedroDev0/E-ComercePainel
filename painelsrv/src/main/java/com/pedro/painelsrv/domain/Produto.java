@@ -17,6 +17,7 @@ public class Produto {
 	private BigDecimal precoCompra;
 	private BigDecimal precoVenda;
 	private Date dataCadastro;
+	private String uriImagePrincipal;
 	
 	public Produto() {
 	}
@@ -65,6 +66,14 @@ public class Produto {
 
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
+	}
+
+	public String getUriImagePrincipal() {
+		return uriImagePrincipal;
+	}
+
+	public void setUriImagePrincipal(String uriImagePrincipal) {
+		this.uriImagePrincipal = uriImagePrincipal;
 	}
 
 

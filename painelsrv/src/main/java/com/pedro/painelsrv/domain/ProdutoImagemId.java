@@ -40,24 +40,5 @@ public class ProdutoImagemId implements java.io.Serializable {
 		this.produtoId = produtoId;
 	}
 
-	public boolean equals(Object other) {
-		if ((this == other))
-			return true;
-		if ((other == null))
-			return false;
-		if (!(other instanceof ProdutoImagemId))
-			return false;
-		ProdutoImagemId castOther = (ProdutoImagemId) other;
-
-		return (this.getId() == castOther.getId()) && (this.getProdutoId() == castOther.getProdutoId());
-	}
-
-	public int hashCode() {
-		int result = 17;
-
-		result = 37 * result + this.getId();
-		result = 37 * result + this.getProdutoId();
-		return result;
-	}
 
 }

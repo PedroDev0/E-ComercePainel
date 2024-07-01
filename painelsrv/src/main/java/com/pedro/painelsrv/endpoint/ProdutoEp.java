@@ -24,7 +24,7 @@ public class ProdutoEp {
 	ProdutoBss prodBss;
 
 	@GET
-	public List<Produto> getListProd(@QueryParam("id") String id, @QueryParam("descricao") String descricao,
+	public List<Object[]> getListProd(@QueryParam("id") String id, @QueryParam("descricao") String descricao,
 			@QueryParam("precoCompra") String precoCompra, @QueryParam("precoVenda") String precoVenda,
 			@QueryParam("dataDe") String dataDe, @QueryParam("dataAte") String dataAte) {
 		return prodBss.getListByCond(id, descricao, precoCompra, precoVenda, dataDe, dataAte);

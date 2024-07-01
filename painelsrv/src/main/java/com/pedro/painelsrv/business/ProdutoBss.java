@@ -27,7 +27,7 @@ public class ProdutoBss extends Bss<Produto> {
 		return dao.merge(entity);
 	}
 
-	public List<Produto> getListByCond(String id, String descricao, String precoCompra, String precoVenda,
+	public List<Object[]> getListByCond(String id, String descricao, String precoCompra, String precoVenda,
 			String dataDe, String dataAte) {
 
 		StringBuilder condicao = new StringBuilder();
@@ -58,7 +58,7 @@ public class ProdutoBss extends Bss<Produto> {
 			condicao.append(" and trunc(o.dataCadastro) <= " + "to_date('" + dataAte + "', 'DD/MM/YYYY')");
 		}
 
-		return dao.getListByCond(condicao.toString());
+		return dao.getListByNativeQueryTypeless(condicao.toString());
 	}
 
 	public void delete(Integer pk) {
