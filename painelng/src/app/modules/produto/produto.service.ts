@@ -9,9 +9,9 @@ import { API_URL } from 'src/environments/environment.development';
 export class ProdutoService {
   
   constructor(private http: HttpClient) { }
-  getListProduto( form:any ): Observable<Produto[]> {
+  getListProduto( form:any ): Observable<any[]> {
     console.log(API_URL + '/product?'+ new URLSearchParams(form).toString())
-    return this.http.get<Produto[]>(API_URL + '/product?'+ new URLSearchParams(form).toString());
+    return this.http.get<any[]>(API_URL + '/product?'+ new URLSearchParams(form).toString());
   }
   createOrUpdate(entity:Produto):Observable<Produto> {
     return this.http.put<Produto>(API_URL+"/product/create-or-update",entity);
