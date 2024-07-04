@@ -7,13 +7,15 @@ import { MessageService } from 'primeng/api';
 })
 export class UtilService {
 
-  constructor(private dialogService: DialogService, private messageService: MessageService ) { }
+  constructor(private dialogService: DialogService, public messageService: MessageService ) { }
 
   showDialog(dialog: any, config: any): DynamicDialogRef {
     return this.dialogService.open(dialog, config);
   }
 
-  showMensagem(mensagem:string): void {
-     this.messageService.add({ severity: 'info', summary: 'info', detail: mensagem });
+  showMensagem(mensagem:string,key:string) {
+    console.log(mensagem);
+    this.messageService.add({ key: key, severity: 'warn', summary: 'Atenção',detail: mensagem ,sticky: true});
   }
+
 }

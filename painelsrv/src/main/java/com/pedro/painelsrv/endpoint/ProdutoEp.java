@@ -6,6 +6,7 @@ import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -14,7 +15,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.pedro.painelsrv.business.ProdutoBss;
-import com.pedro.painelsrv.domain.Produto;
 import com.pedro.painelsrv.endpoint.dto.ProdutoDto;
 
 @Path("/product")
@@ -31,6 +31,7 @@ public class ProdutoEp {
 			@QueryParam("dataDe") String dataDe, @QueryParam("dataAte") String dataAte) {
 		return prodBss.getListByCond(id, descricao, precoCompra, precoVenda, dataDe, dataAte);
 	}
+
 	@GET
 	@Path("/dto/{id}")
 	public ProdutoDto getDTO(@PathParam("id") Integer id) {
@@ -38,9 +39,15 @@ public class ProdutoEp {
 	}
 
 	@PUT
-	@Path("/create-or-update")
-	public Produto create(Produto entity) {
+	@Path("/create")
+	public ProdutoDto create(ProdutoDto entity) {
 		return prodBss.create(entity);
+	}
+
+	@POST
+	@Path("/update")
+	public ProdutoDto update(ProdutoDto entity) {
+		return prodBss.update(entity);
 	}
 
 	@DELETE

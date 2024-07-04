@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import com.pedro.painelsrv.domain.Produto;
+import com.pedro.painelsrv.domain.ProdutoImagem;
 import com.pedro.painelsrv.endpoint.dto.ProdutoDto;
 import com.pedro.painelsrv.util.SQLBuilder;
 
@@ -22,14 +23,31 @@ public class ProdutoBss extends Bss<Produto> {
 		return dao.getList();
 	}
 
-	public Produto create(Produto entity) {
+	public ProdutoDto create(ProdutoDto entityDTO) {
 
-		if (entity.getId() == null || entity.getId() <= 0) {
-			entity.setDataCadastro(new Date());
-			entity.setId(dao.getNextPk("id"));
+		if (entityDTO.getProduto().getId() == null ||entityDTO.getProduto().getId() <= 0) {
+			entityDTO.getProduto().setDataCadastro(new Date());
+			entityDTO.getProduto().setId(dao.getNextPk("id"));
 		}
+		entityDTO.setProduto(  dao.persit(entityDTO.getProduto()));
+		
+		return entityDTO;
+	}
+	
+	public ProdutoDto update(ProdutoDto entityDTO) {
+	
+		entityDTO.setProduto( dao.merge(entityDTO.getProduto()));
+		criaImagens(entityDTO.getImagens(),entityDTO.getProduto().getId());
+		
+		return entityDTO;
+	}
 
-		return dao.merge(entity);
+	private void criaImagens(List<ProdutoImagem> imagens,Integer idProduto) {
+		
+		imagemBss.deleteAllByProd(idProduto);
+		for (ProdutoImagem produtoImagem : imagens) {
+			imagemBss.create(produtoImagem);
+		}
 	}
 
 	public List<Object[]> getListByCond(String id, String descricao, String precoCompra, String precoVenda,
@@ -86,5 +104,7 @@ public class ProdutoBss extends Bss<Produto> {
 		
 		return dto;
 	}
+
+	
 
 }

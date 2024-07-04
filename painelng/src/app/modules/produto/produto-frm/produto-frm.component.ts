@@ -5,17 +5,22 @@ import { FormGroupModel } from 'src/app/core/model/form-group.model';
 import { ProdutoDTO } from '../produto-dto.model';
 import { ProdutoService } from '../produto.service';
 import { ProdutoImagem } from './../../../core/model/produto-imagem.model';
+import { UtilService } from 'src/app/shared/services/util.service';
 
 @Component({
   selector: 'cmp-produto-frm',
   templateUrl: './produto-frm.component.html',
-  styleUrls: ['./produto-frm.component.css']
+  styleUrls: ['./produto-frm.component.css'],
+  
 })
 export class ProdutoFrmComponent implements OnInit {
 
 
-
-  constructor(private ref: DynamicDialogRef, private config: DynamicDialogConfig, private service: ProdutoService, private dectorRef: ChangeDetectorRef) {
+  constructor(private ref: DynamicDialogRef, 
+    private config: DynamicDialogConfig, 
+    private service: ProdutoService, 
+    private dectorRef: ChangeDetectorRef,
+    private util :UtilService) {
 
   }
   ngOnInit(): void {
@@ -63,9 +68,10 @@ export class ProdutoFrmComponent implements OnInit {
   removeImage() {
     throw new Error('Method not implemented.');
   }
-  addImage(uri: string) {
+  addImage(uri: string, key:string) {
 
     if(!uri) {
+      this.util.showMensagem("Digite uma url válida!", key);
       return;
     }
     let imagem: ProdutoImagem = new ProdutoImagem;
