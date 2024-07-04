@@ -79,3 +79,9 @@ padding: 0.5rem;
     width: 35px;
     padding: 0;
 }
+.p-toast .p-toast-message .p-toast-message-content .p-toast-summary {
+    margin: 0.2rem !important;
+}
+.p-toast-message-content {
+    gap: 1.5rem;
+}

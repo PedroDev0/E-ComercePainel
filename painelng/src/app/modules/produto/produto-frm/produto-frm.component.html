@@ -1,4 +1,5 @@
 <div class="flex flex-column h-full gap-3">
+   
     <div class="flex-1">
 
         <p-tabView [formGroup]="form">
@@ -39,12 +40,14 @@
             </p-tabPanel>
             <p-tabPanel header="Imagem">
                 <ng-template pTemplate="content">
+                    <p-toast key="toast1" position="top-center" ></p-toast>
                     <div class="field w-full">
                         <label>Link</label>
                         <div class="flex gap-2">
+                            
                             <input #link class="w-full" pInputText />
                             <button pButton icon="pi pi-minus" (click)="removeImage()" title="Adiciona Imagem"></button>
-                            <button pButton icon="pi pi-plus" (click)="addImage(link.value)"
+                            <button pButton icon="pi pi-plus" (click)="addImage(link.value,'toast1')"
                                 title="Remove Imagem"></button>
                         </div>
                     </div>

@@ -16,6 +16,7 @@ import { SidebarModule } from 'primeng/sidebar';
 import { CalendarModule } from 'primeng/calendar';
 
 import { ToastModule } from 'primeng/toast';
+import { MessagesModule } from 'primeng/messages';
 
 
 
@@ -39,7 +40,8 @@ import { ToastModule } from 'primeng/toast';
     ImageModule,
     SidebarModule,
     CalendarModule,
-    ToastModule
+    ToastModule,
+    MessagesModule
   ],
   imports: [
     CommonModule,
@@ -57,7 +59,8 @@ import { ToastModule } from 'primeng/toast';
     ImageModule,
     SidebarModule,
     CalendarModule,
-    ToastModule
+    ToastModule,
+    MessagesModule
     
   ]
 })
