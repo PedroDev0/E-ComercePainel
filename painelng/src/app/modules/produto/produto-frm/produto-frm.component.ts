@@ -4,6 +4,7 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FormGroupModel } from 'src/app/core/model/form-group.model';
 import { ProdutoDTO } from '../produto-dto.model';
 import { ProdutoService } from '../produto.service';
+import { ProdutoImagem } from './../../../core/model/produto-imagem.model';
 
 @Component({
   selector: 'cmp-produto-frm',
@@ -11,11 +12,11 @@ import { ProdutoService } from '../produto.service';
   styleUrls: ['./produto-frm.component.css']
 })
 export class ProdutoFrmComponent implements OnInit {
-  
-  
-  
-  constructor(private ref: DynamicDialogRef, private config: DynamicDialogConfig, private service: ProdutoService,private dectorRef: ChangeDetectorRef) {
-    
+
+
+
+  constructor(private ref: DynamicDialogRef, private config: DynamicDialogConfig, private service: ProdutoService, private dectorRef: ChangeDetectorRef) {
+
   }
   ngOnInit(): void {
     this.novo = this.config?.data?.novo;
@@ -25,7 +26,7 @@ export class ProdutoFrmComponent implements OnInit {
   }
 
   novo: boolean = false;
-  
+
   form = new FormGroupModel<ProdutoDTO>(new ProdutoDTO(), new Map<string, any>([
     ["descricao", [Validators.required, Validators.maxLength(250), Validators.minLength(5)]],
     ["precoCompra", [Validators.required, Validators.min(0.01)]],
@@ -33,9 +34,8 @@ export class ProdutoFrmComponent implements OnInit {
     ["uriImage", [Validators.required, Validators.min(0.01)]]
   ]));
 
+  imagens: ProdutoImagem[] = [];
 
-
- 
   cancelar() {
     this.close();
     this.form.controls.produto.controls.id
@@ -43,11 +43,11 @@ export class ProdutoFrmComponent implements OnInit {
 
   salvar() {
 
-    // if (this.form.valid) {
-    //   this.service.createOrUpdate(this.form.getRawValue()).subscribe(entity => {
-    //     this.form.patchValue(entity);
-    //   });
-    // }
+    if (this.form.valid) {
+      this.service.createOrUpdate(this.form.getRawValue()).subscribe(entity => {
+        this.form.patchValue(entity);
+      });
+    }
 
   }
 
@@ -63,7 +63,18 @@ export class ProdutoFrmComponent implements OnInit {
   removeImage() {
     throw new Error('Method not implemented.');
   }
-  addImage(uri: string ) {
-    // this.form.controls.imagens.getRawValue().push();
+  addImage(uri: string) {
+
+    if(!uri) {
+      return;
+    }
+    let imagem: ProdutoImagem = new ProdutoImagem;
+    imagem.id.produtoId = this.form.controls.produto.controls.id.getRawValue();
+    imagem.uriImagem = uri;
+    console.log("iamgem: " + uri)
+    this.imagens.push(imagem);
+    console.log(this.imagens);
+
+    this.dectorRef.detectChanges();
   }
 }

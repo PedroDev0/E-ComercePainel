@@ -2,13 +2,13 @@
     <div class="flex-1">
 
         <p-tabView [formGroup]="form">
-            <p-tabPanel header="Dados Básicos" formGroupName= "produto">
+            <p-tabPanel header="Dados Básicos" formGroupName="produto">
                 <ng-template pTemplate="content">
                     <div class="flex gap-2">
                         <div class="field">
                             <label>Cód. Produto</label>
                             <p-inputNumber formControlName="id" mode="decimal" [maxlength]="9" cmpDisableListener
-                                [disableValue]="true"  />
+                                [disableValue]="true" />
                         </div>
                         <div class="field ">
                             <label>Data Cadastro</label>
@@ -31,7 +31,7 @@
                             <label>Preço Venda</label>
                             <div>
                                 <p-inputNumber mode="currency" formControlName="precoVenda" [useGrouping]="false"
-                                currency="BRL" locale="pt-BR" cmpDisableListener />
+                                    currency="BRL" locale="pt-BR" cmpDisableListener />
                             </div>
                         </div>
                     </div>
@@ -41,18 +41,32 @@
                 <ng-template pTemplate="content">
                     <div class="field w-full">
                         <label>Link</label>
-                        <div class="flex gap-2" >
-                            <input #link class="w-full" pInputText  />
-                            <button pButton icon="pi pi-minus" (click)="removeImage()" title="Cancelar"></button>
-                            <button pButton icon="pi pi-plus"  (click)="addImage(link.textContent)"></button>
+                        <div class="flex gap-2">
+                            <input #link class="w-full" pInputText />
+                            <button pButton icon="pi pi-minus" (click)="removeImage()" title="Adiciona Imagem"></button>
+                            <button pButton icon="pi pi-plus" (click)="addImage(link.value)"
+                                title="Remove Imagem"></button>
                         </div>
                     </div>
-                    <p-galleria [value]="this.form.controls.imagens.getRawValue()" [showItemNavigators]="true" [circular]="true" 
-                    [showIndicators]="true" [showThumbnails]="false" >
-                        <ng-template pTemplate="item" let-item >
-                            <img [src]="item.itemImageSrc" style="width: 200px; display: block; height: 230px;" />
+                    <p-card  >
+
+                        <p-table [value]="imagens"  [scrollable]="true" [tableStyle]="{ 'min-height': '223px' }"   scrollHeight="223px" selectionMode="single" dataKey="id">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                <th>Cód. Imagem</th>
+                                <th>Imagem</th>
+                                <th>Principal</th>
+                            </tr>
                         </ng-template>
-                    </p-galleria>
+                        <ng-template pTemplate="body" let-imagem>
+                            <tr [pSelectableRow]="imagem">
+                                <td>{{ imagem.id.id }} </td>
+                                <td> <img [src]="imagem.uriImagem" width="100" class="shadow-4" /></td>
+                                <td>{{ imagem.principal}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-card>
                 </ng-template>
             </p-tabPanel>
         </p-tabView>

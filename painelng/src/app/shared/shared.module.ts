@@ -15,6 +15,8 @@ import { ImageModule } from 'primeng/image';
 import { SidebarModule } from 'primeng/sidebar';
 import { CalendarModule } from 'primeng/calendar';
 
+import { ToastModule } from 'primeng/toast';
+
 
 
 @NgModule({
@@ -36,7 +38,8 @@ import { CalendarModule } from 'primeng/calendar';
     TabViewModule,
     ImageModule,
     SidebarModule,
-    CalendarModule
+    CalendarModule,
+    ToastModule
   ],
   imports: [
     CommonModule,
@@ -53,7 +56,8 @@ import { CalendarModule } from 'primeng/calendar';
     TabViewModule,
     ImageModule,
     SidebarModule,
-    CalendarModule
+    CalendarModule,
+    ToastModule
     
   ]
 })

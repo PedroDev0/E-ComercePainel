@@ -17,7 +17,7 @@ export class ProdutoService {
   getListProduto(form: any): Observable<any[]> {
     return this.http.get<any[]>(API_URL + '/product?' + new URLSearchParams(form).toString());
   }
-  createOrUpdate(entity: Produto): Observable<Produto> {
-    return this.http.put<Produto>(API_URL + "/product/create-or-update", entity);
+  createOrUpdate(entity: ProdutoDTO): Observable<ProdutoDTO> {
+    return this.http.put<ProdutoDTO>(API_URL + "/product/create-or-update", entity);
   }
 }
