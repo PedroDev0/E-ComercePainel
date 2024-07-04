@@ -11,8 +11,8 @@ public class ProdutoImagemBss extends Bss<ProdutoImagem> {
 
 	private static final long serialVersionUID = 1L;
 
-	List<ProdutoImagem> getListByProd(Integer idProduto) {
-		return dao.getListByCond(" id.produtoId = " + idProduto);
+	public List<ProdutoImagem> getListByProd(Integer idProduto) {
+		return dao.getListByCond(" o.id.produtoId = " + idProduto);
 	}
 
 }

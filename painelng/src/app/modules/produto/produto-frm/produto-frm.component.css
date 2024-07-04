@@ -1,0 +1,15 @@
+:host::ng-deep .p-galleria-thumbnail-container{
+
+    height: 170px;
+  
+}
+:host::ng-deep .p-galleria-thumbnail-items-container {
+
+    height: 150px;
+}
+:host::ng-deep .p-galleria-thumbnail-item {
+    overflow: hidden;
+}
+:host ::ng-deep  .p-galleria-item-nav {
+    color: #2196F3 !important;
+}

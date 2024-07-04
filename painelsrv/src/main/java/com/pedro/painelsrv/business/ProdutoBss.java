@@ -3,9 +3,11 @@ package com.pedro.painelsrv.business;
 import java.util.Date;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import com.pedro.painelsrv.domain.Produto;
+import com.pedro.painelsrv.endpoint.dto.ProdutoDto;
 import com.pedro.painelsrv.util.SQLBuilder;
 
 @Stateless
@@ -13,6 +15,8 @@ public class ProdutoBss extends Bss<Produto> {
 
 	private static final long serialVersionUID = 1L;
 
+	@EJB
+	ProdutoImagemBss imagemBss;
 	public List<Produto> getList() {
 
 		return dao.getList();
@@ -72,6 +76,15 @@ public class ProdutoBss extends Bss<Produto> {
 
 	public void delete(Integer pk) {
 		dao.delete(pk);
+	}
+
+	public ProdutoDto getDTO(Integer id) {
+		
+		ProdutoDto dto = new ProdutoDto();
+		dto.setProduto(dao.getEntity(id));
+		dto.setImagens(imagemBss.getListByProd(id));
+		
+		return dto;
 	}
 
 }

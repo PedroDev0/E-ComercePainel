@@ -69,7 +69,7 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-product>
-                <tr [pSelectableRow]="product" (dblclick)="doubleClickRow(product)">
+                <tr [pSelectableRow]="product" (dblclick)="doubleClickRow(product[0])">
                     <td>{{ product[0] }}</td>
                     <td> <img [src]="product[1]" [alt]="product.name" width="100" class="shadow-4" /></td>
                     <td>{{ product[2] }}</td>

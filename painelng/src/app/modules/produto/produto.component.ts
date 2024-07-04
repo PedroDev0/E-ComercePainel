@@ -6,7 +6,7 @@ import { ProdutoFrmComponent } from './produto-frm/produto-frm.component';
 import { ProdutoService } from './produto.service';
 import Produto from 'src/app/core/model/produto.model';
 import { FormGroupModel } from 'src/app/core/model/form-group.model';
-import { FiltrosProd } from './filttro.prod.model';
+import { FiltrosProd } from './filttro-prod.model';
 
 @Component({
   selector: 'cmp-produto',
@@ -33,8 +33,8 @@ export class ProdutoComponent {
   showFrm() {
     let ref: DynamicDialogRef = this.utilService.showDialog(ProdutoFrmComponent, {
       header: 'Produto',
-      width: '44vw',
-      height: '44vh',
+      width: '55vw',
+      height: '55vh',
       closable: false,
       data: {
         novo: true,
@@ -43,18 +43,25 @@ export class ProdutoComponent {
     });
   }
 
-  doubleClickRow(produto: Produto) {
-    let ref: DynamicDialogRef = this.utilService.showDialog(ProdutoFrmComponent, {
-      header: 'Produto',
-      width: '44vw',
-      height: '44vh',
-      closable: false,
-      data: {
-        novo: false,
-        enable: true,
-        produto: produto
+  doubleClickRow(codProduto: number) {
+  
+    this.service.getProtudoDTO(codProduto).subscribe(produtoDTO => {
+      if (produtoDTO) {
+        let ref: DynamicDialogRef = this.utilService.showDialog(ProdutoFrmComponent, {
+          header: 'Produto',
+          width: '55vw',
+          height: '55vh',
+          closable: false,
+          data: {
+            novo: false,
+            enable: true,
+            produto: produtoDTO
+          }
+        });
       }
-    });
+    }
+    )
+
   }
 
 

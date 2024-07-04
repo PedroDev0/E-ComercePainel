@@ -2,13 +2,13 @@
     <div class="flex-1">
 
         <p-tabView [formGroup]="form">
-            <p-tabPanel header="Dados Básicos">
+            <p-tabPanel header="Dados Básicos" formGroupName= "produto">
                 <ng-template pTemplate="content">
                     <div class="flex gap-2">
                         <div class="field">
                             <label>Cód. Produto</label>
                             <p-inputNumber formControlName="id" mode="decimal" [maxlength]="9" cmpDisableListener
-                                [disableValue]="true" />
+                                [disableValue]="true"  />
                         </div>
                         <div class="field ">
                             <label>Data Cadastro</label>
@@ -29,8 +29,10 @@
                         </div>
                         <div class="field">
                             <label>Preço Venda</label>
-                            <p-inputNumber mode="currency" formControlName="precoVenda" [useGrouping]="false"
+                            <div>
+                                <p-inputNumber mode="currency" formControlName="precoVenda" [useGrouping]="false"
                                 currency="BRL" locale="pt-BR" cmpDisableListener />
+                            </div>
                         </div>
                     </div>
                 </ng-template>
@@ -39,25 +41,20 @@
                 <ng-template pTemplate="content">
                     <div class="field w-full">
                         <label>Link</label>
-                        <input pInputText formControlName="uriImage" />
+                        <div class="flex gap-2" >
+                            <input #link class="w-full" pInputText  />
+                            <button pButton icon="pi pi-minus" (click)="removeImage()" title="Cancelar"></button>
+                            <button pButton icon="pi pi-plus"  (click)="addImage(link.textContent)"></button>
+                        </div>
                     </div>
-                    
-    
-                    <p-galleria [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '200px' }" [numVisible]="3">
-                        <ng-template pTemplate="item" let-item>
-                            <p-image [src]="form.controls?.uriImage.getRawValue()" alt="Image" width="100px" height="100px"
-                            [preview]="true"></p-image>
-                        </ng-template>
-                        <ng-template pTemplate="thumbnail" let-item>
-                            <div class="grid grid-nogutter justify-content-center">
-                                <p-image [src]="form.controls?.uriImage.getRawValue()" alt="Image" width="100px" height="100px"
-                            [preview]="true"></p-image>
-                            </div>
+                    <p-galleria [value]="this.form.controls.imagens.getRawValue()" [showItemNavigators]="true" [circular]="true" 
+                    [showIndicators]="true" [showThumbnails]="false" >
+                        <ng-template pTemplate="item" let-item >
+                            <img [src]="item.itemImageSrc" style="width: 200px; display: block; height: 230px;" />
                         </ng-template>
                     </p-galleria>
                 </ng-template>
             </p-tabPanel>
-
         </p-tabView>
 
     </div>
