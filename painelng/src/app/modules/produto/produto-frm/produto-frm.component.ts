@@ -27,10 +27,16 @@ export class ProdutoFrmComponent implements OnInit {
   }
   ngOnInit(): void {
     this.novo = this.config?.data?.novo;
+
     if (this.config?.data?.produtoDTO) {
       this.form.patchValue(this.config?.data?.produtoDTO.produto)
-      this.imagens= this.config?.data?.produtoDTO.imagens
+      this.imagens = this.config?.data?.produtoDTO.imagens
 
+      this.imagens.forEach(e => {
+        if (e?.principal) {
+          this.principalImagem = e;
+        }
+      });
     }
   }
 
@@ -101,8 +107,8 @@ export class ProdutoFrmComponent implements OnInit {
     this.ref.close();
   }
 
-  removeImage() {
-    throw new Error('Method not implemented.');
+  removeImage(imagemARemover: ProdutoImagem) {
+    this.imagens = this.imagens.filter(imagem => imagemARemover  !== imagem);
   }
   addImage(input: any) {
 
@@ -122,7 +128,7 @@ export class ProdutoFrmComponent implements OnInit {
     imagem.id = new ProdutoImagemId();
 
     imagem.id.produtoId = this.form.controls.id.getRawValue();
-    imagem.id.id = this.imagens?.length + 1;
+    imagem.id.id = 0;
     imagem.uriImagem = uri;
     imagem.principal = false;
 
@@ -137,7 +143,6 @@ export class ProdutoFrmComponent implements OnInit {
     imagem.principal = event.checked;
 
     if (event.checked) {
-
       this.principalImagem = imagem;
 
       this.imagens.forEach(img => {

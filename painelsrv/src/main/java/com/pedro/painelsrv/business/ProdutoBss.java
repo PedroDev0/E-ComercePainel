@@ -18,6 +18,7 @@ public class ProdutoBss extends Bss<Produto> {
 
 	@EJB
 	ProdutoImagemBss imagemBss;
+
 	public List<Produto> getList() {
 
 		return dao.getList();
@@ -25,25 +26,25 @@ public class ProdutoBss extends Bss<Produto> {
 
 	public ProdutoDto create(ProdutoDto entityDTO) {
 
-		if (entityDTO.getProduto().getId() == null ||entityDTO.getProduto().getId() <= 0) {
+		if (entityDTO.getProduto().getId() == null || entityDTO.getProduto().getId() <= 0) {
 			entityDTO.getProduto().setDataCadastro(new Date());
 			entityDTO.getProduto().setId(dao.getNextPk("id"));
 		}
-		entityDTO.setProduto(  dao.persit(entityDTO.getProduto()));
-		
-		return entityDTO;
-	}
-	
-	public ProdutoDto update(ProdutoDto entityDTO) {
-	
-		entityDTO.setProduto( dao.merge(entityDTO.getProduto()));
-		criaImagens(entityDTO.getImagens(),entityDTO.getProduto().getId());
-		
+		entityDTO.setProduto(dao.persit(entityDTO.getProduto()));
+
 		return entityDTO;
 	}
 
-	private void criaImagens(List<ProdutoImagem> imagens,Integer idProduto) {
-		
+	public ProdutoDto update(ProdutoDto entityDTO) {
+
+		entityDTO.setProduto(dao.merge(entityDTO.getProduto()));
+		criaImagens(entityDTO.getImagens(), entityDTO.getProduto().getId());
+
+		return entityDTO;
+	}
+
+	private void criaImagens(List<ProdutoImagem> imagens, Integer idProduto) {
+
 		imagemBss.deleteAllByProd(idProduto);
 		for (ProdutoImagem produtoImagem : imagens) {
 			imagemBss.create(produtoImagem);
@@ -54,19 +55,19 @@ public class ProdutoBss extends Bss<Produto> {
 			String dataDe, String dataAte) {
 
 		SQLBuilder sql = new SQLBuilder("PRODUTO");
-		//SELECIONA CAMPOS SELECT NATIVO
+		// SELECIONA CAMPOS SELECT NATIVO
 		sql.appendField("PRODUTO.ID");
-		sql.appendField("PRODUTO_IMAGEM.URI_IMAGEM");
+		sql.appendField("URI_PRINCIPAL.URI_IMAGEM");
 		sql.appendField("PRODUTO.DESCRICAO");
 		sql.appendField("PRODUTO.PRECO_VENDA");
 		sql.appendField("PRODUTO.PRECO_COMPRA");
-		
-		//INCLUI OS JOINS
-		sql.appendJoin(" LEFT JOIN PRODUTO_IMAGEM ON PRODUTO.ID = PRODUTO_IMAGEM.PRODUTO_ID ");
-		
+
+		// INCLUI OS JOINS
+		sql.appendJoin(
+				" LEFT JOIN ( SELECT PRODUTO_ID, URI_IMAGEM  FROM PRODUTO_IMAGEM WHERE PRINCIPAL = 1) URI_PRINCIPAL ON PRODUTO.ID = URI_PRINCIPAL.PRODUTO_ID ");
+
 		sql.appendWhere(" PRODUTO.ID <> 0");
-		sql.appendWhere(" PRODUTO_IMAGEM.PRINCIPAL = 1 ");
-		
+
 		if (id != null && !id.equalsIgnoreCase("null")) {
 			sql.appendWhere(" PRODUTO.ID = " + id);
 		}
@@ -99,14 +100,12 @@ public class ProdutoBss extends Bss<Produto> {
 	}
 
 	public ProdutoDto getDTO(Integer id) {
-		
+
 		ProdutoDto dto = new ProdutoDto();
 		dto.setProduto(dao.getEntity(id));
 		dto.setImagens(imagemBss.getListByProd(id));
-		
+
 		return dto;
 	}
-
-	
 
 }

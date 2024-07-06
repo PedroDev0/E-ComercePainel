@@ -11,7 +11,7 @@ import javax.persistence.Embeddable;
 public class ProdutoImagemId implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private int id;
+	private Integer id;
 	private int produtoId;
 
 	public ProdutoImagemId() {

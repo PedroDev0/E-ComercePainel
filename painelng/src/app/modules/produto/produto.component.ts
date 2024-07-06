@@ -17,10 +17,10 @@ import { FiltrosProd } from './filttro-prod.model';
 export class ProdutoComponent {
 
 
-  products: any[] = [];
-  form = new FormGroupModel<FiltrosProd>(new FiltrosProd());
-  selectedProduct: any;
-  sidebarVisible2: boolean = false;
+  protected products: any[] = [];
+  protected form = new FormGroupModel<FiltrosProd>(new FiltrosProd());
+  protected selectedProduct: any;
+  protected sidebarVisible2: boolean = false;
 
   constructor(private service: ProdutoService, private utilService: UtilService) {
 
