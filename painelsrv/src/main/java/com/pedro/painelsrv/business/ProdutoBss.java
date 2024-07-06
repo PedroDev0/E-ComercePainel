@@ -65,6 +65,8 @@ public class ProdutoBss extends Bss<Produto> {
 		sql.appendJoin(" LEFT JOIN PRODUTO_IMAGEM ON PRODUTO.ID = PRODUTO_IMAGEM.PRODUTO_ID ");
 		
 		sql.appendWhere(" PRODUTO.ID <> 0");
+		sql.appendWhere(" PRODUTO_IMAGEM.PRINCIPAL = 1 ");
+		
 		if (id != null && !id.equalsIgnoreCase("null")) {
 			sql.appendWhere(" PRODUTO.ID = " + id);
 		}

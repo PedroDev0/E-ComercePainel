@@ -17,8 +17,8 @@ import { CalendarModule } from 'primeng/calendar';
 
 import { ToastModule } from 'primeng/toast';
 import { MessagesModule } from 'primeng/messages';
-
-
+import { CheckboxModule } from 'primeng/checkbox';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 @NgModule({
 
@@ -41,7 +41,9 @@ import { MessagesModule } from 'primeng/messages';
     SidebarModule,
     CalendarModule,
     ToastModule,
-    MessagesModule
+    MessagesModule,
+    CheckboxModule,
+    RadioButtonModule
   ],
   imports: [
     CommonModule,
@@ -60,7 +62,9 @@ import { MessagesModule } from 'primeng/messages';
     SidebarModule,
     CalendarModule,
     ToastModule,
-    MessagesModule
+    MessagesModule,
+    CheckboxModule,
+    RadioButtonModule
     
   ]
 })

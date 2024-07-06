@@ -55,7 +55,7 @@ export class ProdutoComponent {
           data: {
             novo: false,
             enable: true,
-            produto: produtoDTO
+            produtoDTO: produtoDTO
           }
         });
       }

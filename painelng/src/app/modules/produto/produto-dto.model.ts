@@ -3,5 +3,5 @@ import { ProdutoImagem } from './../../core/model/produto-imagem.model';
 
 export class ProdutoDTO {
     produto: Produto = new Produto();
-    imagens: ProdutoImagem[] = [];
+    imagens: ProdutoImagem[] =[];
 }

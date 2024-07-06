@@ -3,6 +3,5 @@ export default class Produto {
     descricao: string = null;
     precoCompra: number = null;
     precoVenda: number = null;
-    uriImage: string = null;
     dataCadastro:Date= null;
 }

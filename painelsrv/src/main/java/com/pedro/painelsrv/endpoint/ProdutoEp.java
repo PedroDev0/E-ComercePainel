@@ -25,6 +25,18 @@ public class ProdutoEp {
 	@EJB
 	ProdutoBss prodBss;
 
+	@POST
+	@Path("/create")
+	public ProdutoDto create(ProdutoDto entity) {
+		return prodBss.create(entity);
+	}
+
+	@PUT
+	@Path("/update")
+	public ProdutoDto update(ProdutoDto entity) {
+		return prodBss.update(entity);
+	}
+	
 	@GET
 	public List<Object[]> getListProd(@QueryParam("id") String id, @QueryParam("descricao") String descricao,
 			@QueryParam("precoCompra") String precoCompra, @QueryParam("precoVenda") String precoVenda,
@@ -38,17 +50,7 @@ public class ProdutoEp {
 		return prodBss.getDTO(id);
 	}
 
-	@PUT
-	@Path("/create")
-	public ProdutoDto create(ProdutoDto entity) {
-		return prodBss.create(entity);
-	}
 
-	@POST
-	@Path("/update")
-	public ProdutoDto update(ProdutoDto entity) {
-		return prodBss.update(entity);
-	}
 
 	@DELETE
 	public void delete(Integer pk) {

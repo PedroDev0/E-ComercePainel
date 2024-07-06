@@ -15,7 +15,7 @@ export class UtilService {
 
   showMensagem(mensagem:string,key:string) {
     console.log(mensagem);
-    this.messageService.add({ key: key, severity: 'warn', summary: 'Atenção',detail: mensagem ,sticky: true});
+    this.messageService.add({ key: key, severity: 'warn', summary: 'Atenção',detail: mensagem });
   }
 
 }

@@ -6,55 +6,91 @@ import { ProdutoDTO } from '../produto-dto.model';
 import { ProdutoService } from '../produto.service';
 import { ProdutoImagem } from './../../../core/model/produto-imagem.model';
 import { UtilService } from 'src/app/shared/services/util.service';
+import { ProdutoImagemId } from 'src/app/core/model/produto-imagem-id.model';
+import Produto from 'src/app/core/model/produto.model';
 
 @Component({
   selector: 'cmp-produto-frm',
   templateUrl: './produto-frm.component.html',
   styleUrls: ['./produto-frm.component.css'],
-  
+
 })
 export class ProdutoFrmComponent implements OnInit {
 
 
-  constructor(private ref: DynamicDialogRef, 
-    private config: DynamicDialogConfig, 
-    private service: ProdutoService, 
+  constructor(private ref: DynamicDialogRef,
+    private config: DynamicDialogConfig,
+    private service: ProdutoService,
     private dectorRef: ChangeDetectorRef,
-    private util :UtilService) {
+    private util: UtilService) {
 
   }
   ngOnInit(): void {
     this.novo = this.config?.data?.novo;
-    if (this.config?.data?.produto) {
-      this.form.patchValue(this.config?.data?.produto)
+    if (this.config?.data?.produtoDTO) {
+      this.form.patchValue(this.config?.data?.produtoDTO.produto)
+      this.imagens= this.config?.data?.produtoDTO.imagens
+
     }
   }
 
-  novo: boolean = false;
+  protected novo: boolean = false;
+  protected principalImagem: ProdutoImagem;
+  protected imagens: ProdutoImagem[] = [];
+  private idToast: string = 'toast1';
+  private entityDto: ProdutoDTO = new ProdutoDTO();
 
-  form = new FormGroupModel<ProdutoDTO>(new ProdutoDTO(), new Map<string, any>([
+  form = new FormGroupModel<Produto>(new Produto(), new Map<string, any>([
     ["descricao", [Validators.required, Validators.maxLength(250), Validators.minLength(5)]],
     ["precoCompra", [Validators.required, Validators.min(0.01)]],
     ["precoVenda", [Validators.required, Validators.min(0.01)]],
     ["uriImage", [Validators.required, Validators.min(0.01)]]
   ]));
 
-  imagens: ProdutoImagem[] = [];
 
   cancelar() {
     this.close();
-    this.form.controls.produto.controls.id
   }
 
   salvar() {
 
-    if (this.form.valid) {
-      this.service.createOrUpdate(this.form.getRawValue()).subscribe(entity => {
-        this.form.patchValue(entity);
+    if (this.validaTela()) {
+      this.montaDto();
+
+      if (this.novo) {
+        this.service.create(this.entityDto).subscribe(entity => {
+          this.form.patchValue(entity.produto);
+          this.imagens = entity.imagens;
+        });
+        return;
+      }
+
+
+      this.service.update(this.entityDto).subscribe(entity => {
+        this.form.patchValue(entity.produto);
+        this.imagens = entity.imagens;
       });
     }
-
   }
+  montaDto() {
+    this.entityDto.produto = this.form.getRawValue();
+    this.entityDto.imagens = this.imagens;
+  }
+
+  validaTela(): boolean {
+
+    if (this.form.invalid) {
+      this.util.showMensagem("Falta preencher alguns campos!", this.idToast);
+      this.util.showMensagem("Favor verificar o formulário!", this.idToast);
+      return false;
+    }
+    if (this.imagens?.length <= 0) {
+      this.util.showMensagem("Adicione pelo menos uma imagem!", this.idToast);
+      return false;
+    }
+    return true;
+  }
+
 
   apagar() {
     throw new Error('Method not implemented.');
@@ -68,19 +104,47 @@ export class ProdutoFrmComponent implements OnInit {
   removeImage() {
     throw new Error('Method not implemented.');
   }
-  addImage(uri: string, key:string) {
+  addImage(input: any) {
 
-    if(!uri) {
-      this.util.showMensagem("Digite uma url válida!", key);
+    if (!input.value) {
+      this.util.showMensagem("Digite uma url válida!", this.idToast);
       return;
     }
-    let imagem: ProdutoImagem = new ProdutoImagem;
-    imagem.id.produtoId = this.form.controls.produto.controls.id.getRawValue();
-    imagem.uriImagem = uri;
-    console.log("iamgem: " + uri)
-    this.imagens.push(imagem);
-    console.log(this.imagens);
-
+    //Cria Imagem
+    this.imagens.push(this.createImagem(input.value));
+    input.value = "";
     this.dectorRef.detectChanges();
+  }
+
+  createImagem(uri: string): ProdutoImagem {
+
+    let imagem: ProdutoImagem = new ProdutoImagem();
+    imagem.id = new ProdutoImagemId();
+
+    imagem.id.produtoId = this.form.controls.id.getRawValue();
+    imagem.id.id = this.imagens?.length + 1;
+    imagem.uriImagem = uri;
+    imagem.principal = false;
+
+    if (imagem.id.id == 1)
+      this.principalImagem = imagem;
+
+    return imagem;
+  }
+  onPrincipalChange(event: any, imagem: ProdutoImagem) {
+
+    //imagem da vez
+    imagem.principal = event.checked;
+
+    if (event.checked) {
+
+      this.principalImagem = imagem;
+
+      this.imagens.forEach(img => {
+        if (img !== imagem) {
+          img.principal = false;
+        }
+      });
+    }
   }
 }
