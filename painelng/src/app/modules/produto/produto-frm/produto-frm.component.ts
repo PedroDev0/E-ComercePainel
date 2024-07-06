@@ -71,7 +71,6 @@ export class ProdutoFrmComponent implements OnInit {
         return;
       }
 
-
       this.service.update(this.entityDto).subscribe(entity => {
         this.form.patchValue(entity.produto);
         this.imagens = entity.imagens;
@@ -86,17 +85,16 @@ export class ProdutoFrmComponent implements OnInit {
   validaTela(): boolean {
 
     if (this.form.invalid) {
-      this.util.showMensagem("Falta preencher alguns campos!", this.idToast);
-      this.util.showMensagem("Favor verificar o formulário!", this.idToast);
+      this.util.showWarn("Falta preencher alguns campos!", this.idToast);
+      this.util.showWarn("Favor verificar o formulário!", this.idToast);
       return false;
     }
     if (this.imagens?.length <= 0) {
-      this.util.showMensagem("Adicione pelo menos uma imagem!", this.idToast);
+      this.util.showWarn("Adicione pelo menos uma imagem!", this.idToast);
       return false;
     }
     return true;
   }
-
 
   apagar() {
     throw new Error('Method not implemented.');
@@ -113,7 +111,7 @@ export class ProdutoFrmComponent implements OnInit {
   addImage(input: any) {
 
     if (!input.value) {
-      this.util.showMensagem("Digite uma url válida!", this.idToast);
+      this.util.showWarn("Digite uma url válida!", this.idToast);
       return;
     }
     //Cria Imagem
@@ -128,9 +126,8 @@ export class ProdutoFrmComponent implements OnInit {
     imagem.id = new ProdutoImagemId();
 
     imagem.id.produtoId = this.form.controls.id.getRawValue();
-    imagem.id.id = 0;
+    imagem.id.id = this.imagens?.length+1;
     imagem.uriImagem = uri;
-    imagem.principal = false;
 
     if (imagem.id.id == 1)
       this.principalImagem = imagem;

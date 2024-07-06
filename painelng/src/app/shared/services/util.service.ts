@@ -13,8 +13,10 @@ export class UtilService {
     return this.dialogService.open(dialog, config);
   }
 
-  showMensagem(mensagem:string,key:string) {
-    console.log(mensagem);
+  showWarn(mensagem:string,key:string) {
+    this.messageService.add({ key: key, severity: 'warn', summary: 'Atenção',detail: mensagem });
+  }
+  showInfo(mensagem:string,key:string) {
     this.messageService.add({ key: key, severity: 'warn', summary: 'Atenção',detail: mensagem });
   }
 

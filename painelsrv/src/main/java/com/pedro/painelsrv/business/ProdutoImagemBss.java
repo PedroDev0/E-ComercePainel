@@ -14,20 +14,19 @@ public class ProdutoImagemBss extends Bss<ProdutoImagem> {
 	public List<ProdutoImagem> getListByProd(Integer idProduto) {
 		return dao.getListByCond(" o.id.produtoId = " + idProduto);
 	}
+
 	public void deleteAllByProd(Integer idProduto) {
-		
-		List<ProdutoImagem> imagens =  getListByProd(idProduto);
-		
+
+		List<ProdutoImagem> imagens = getListByProd(idProduto);
+
 		for (ProdutoImagem produtoImagem : imagens) {
 			dao.delete(produtoImagem.getId());
 		}
 	}
+
 	public void create(ProdutoImagem produtoImagem) {
-		if (produtoImagem.getId().getId()  <= 0) {
-			produtoImagem.getId().setId(dao.getNextPk("id.id"));
-		}
+		produtoImagem.getId().setId(dao.getNextPk("id.id"));
 		dao.persit(produtoImagem);
-	
 	}
 
 }
