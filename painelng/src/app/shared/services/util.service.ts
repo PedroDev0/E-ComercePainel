@@ -17,7 +17,7 @@ export class UtilService {
     this.messageService.add({ key: key, severity: 'warn', summary: 'Atenção',detail: mensagem });
   }
   showInfo(mensagem:string,key:string) {
-    this.messageService.add({ key: key, severity: 'warn', summary: 'Atenção',detail: mensagem });
+    this.messageService.add({ key: key, severity: 'info', summary: 'Opa',detail: mensagem });
   }
 
 }

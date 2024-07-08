@@ -26,10 +26,8 @@ public class ProdutoBss extends Bss<Produto> {
 
 	public ProdutoDto create(ProdutoDto entityDTO) {
 
-		if (entityDTO.getProduto().getId() == null || entityDTO.getProduto().getId() <= 0) {
-			entityDTO.getProduto().setDataCadastro(new Date());
-			entityDTO.getProduto().setId(dao.getNextPk("id"));
-		}
+		entityDTO.getProduto().setDataCadastro(new Date());
+		entityDTO.getProduto().setId(dao.getNextPk("id"));
 		entityDTO.setProduto(dao.persit(entityDTO.getProduto()));
 
 		return entityDTO;

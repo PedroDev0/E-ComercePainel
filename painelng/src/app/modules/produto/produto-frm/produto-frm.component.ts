@@ -67,6 +67,7 @@ export class ProdutoFrmComponent implements OnInit {
         this.service.create(this.entityDto).subscribe(entity => {
           this.form.patchValue(entity.produto);
           this.imagens = entity.imagens;
+          this.util.showInfo("Produto criado!", this.idToast);
         });
         return;
       }
@@ -74,6 +75,7 @@ export class ProdutoFrmComponent implements OnInit {
       this.service.update(this.entityDto).subscribe(entity => {
         this.form.patchValue(entity.produto);
         this.imagens = entity.imagens;
+        this.util.showInfo("Produto atualizado!", this.idToast);
       });
     }
   }
@@ -106,7 +108,7 @@ export class ProdutoFrmComponent implements OnInit {
   }
 
   removeImage(imagemARemover: ProdutoImagem) {
-    this.imagens = this.imagens.filter(imagem => imagemARemover  !== imagem);
+    this.imagens = this.imagens.filter(imagem => imagemARemover !== imagem);
   }
   addImage(input: any) {
 
@@ -126,7 +128,7 @@ export class ProdutoFrmComponent implements OnInit {
     imagem.id = new ProdutoImagemId();
 
     imagem.id.produtoId = this.form.controls.id.getRawValue();
-    imagem.id.id = this.imagens?.length+1;
+    imagem.id.id = this.imagens?.length + 1;
     imagem.uriImagem = uri;
 
     if (imagem.id.id == 1)

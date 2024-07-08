@@ -2,8 +2,8 @@
 
     <div class="flex-1">
 
-        <p-tabView [formGroup]="form">
-            <p-tabPanel header="Dados Básicos">
+        <p-tabView>
+            <p-tabPanel header="Dados Básicos"  [formGroup]="form">
                 <ng-template pTemplate="content">
                     <div class="flex gap-2">
                         <div class="field">
@@ -66,7 +66,7 @@
                                 <tr [pSelectableRow]="imagem">
                                     <td>{{ imagem.id.id }} </td>
                                     <td> <img [src]="imagem.uriImagem" width="100" class="shadow-4" /></td>
-                                    <td>  <p-checkbox [ngModelOptions]="{standalone: true}"
+                                    <td>  <p-checkbox 
                                             [ngModel]="imagem.id.id == principalImagem?.id?.id" [binary]="true"
                                             (onChange)="onPrincipalChange($event,imagem)"></p-checkbox></td>
                                             <td><button pButton icon="pi pi-times" class="p-button-danger" (click)="removeImage(imagem)" title="Adiciona Imagem"></button> </td>
