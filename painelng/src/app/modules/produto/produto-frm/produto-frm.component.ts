@@ -99,7 +99,10 @@ export class ProdutoFrmComponent implements OnInit {
   }
 
   apagar() {
-    throw new Error('Method not implemented.');
+    this.util.showConfirmDialog("Deseja realmente apagar este produto?"
+      , 'Delte Produto');
+      console.log('apaguei');
+      
   }
 
 

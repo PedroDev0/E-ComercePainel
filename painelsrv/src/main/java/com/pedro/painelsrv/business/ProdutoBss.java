@@ -9,6 +9,7 @@ import javax.ejb.Stateless;
 import com.pedro.painelsrv.domain.Produto;
 import com.pedro.painelsrv.domain.ProdutoImagem;
 import com.pedro.painelsrv.endpoint.dto.ProdutoDto;
+import com.pedro.painelsrv.util.Funcoes;
 import com.pedro.painelsrv.util.SQLBuilder;
 
 @Stateless
@@ -66,27 +67,27 @@ public class ProdutoBss extends Bss<Produto> {
 
 		sql.appendWhere(" PRODUTO.ID <> 0");
 
-		if (id != null && !id.equalsIgnoreCase("null")) {
+		if (!Funcoes.validateUrlPram(id)) {
 			sql.appendWhere(" PRODUTO.ID = " + id);
 		}
 
-		if (descricao != null && !descricao.equalsIgnoreCase("null")) {
+		if (!Funcoes.validateUrlPram(descricao)) {
 			sql.appendWhere(" and upper(PRODUTO.DESCRICAO) like '" + descricao.toUpperCase());
 			sql.appendWhere("%'");
 		}
 
-		if (precoVenda != null && !precoCompra.equalsIgnoreCase("null")) {
+		if (!Funcoes.validateUrlPram(precoCompra)) {
 			sql.appendWhere(" and PRODUTO.PRECO_COMPRA= " + precoCompra);
 		}
-		if (precoVenda != null && !precoVenda.equalsIgnoreCase("null")) {
+		if (!Funcoes.validateUrlPram(precoVenda)) {
 			sql.appendWhere(" and PRODUTO.PRECO_VENDA= " + precoVenda);
 		}
 
-		if (dataDe != null && !dataDe.equalsIgnoreCase("null")) {
+		if (!Funcoes.validateUrlPram(dataDe)) {
 			sql.appendWhere(" and trunc(PRODUTO.DATA_CADASTRO) >= " + "to_date('" + dataDe + "', 'DD/MM/YYYY')");
 		}
 
-		if (dataAte != null && !dataAte.equalsIgnoreCase("null")) {
+		if (!Funcoes.validateUrlPram(dataAte)) {
 			sql.appendWhere(" and trunc(PRODUTO.DATA_CADASTRO)  <= " + "to_date('" + dataAte + "', 'DD/MM/YYYY')");
 		}
 
