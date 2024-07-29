@@ -1,5 +1,7 @@
 package com.pedro.painelsrv.business;
 
+import static com.pedro.painelsrv.util.Funcoes.validateUrlParam;
+
 import java.util.Date;
 import java.util.List;
 
@@ -9,7 +11,6 @@ import javax.ejb.Stateless;
 import com.pedro.painelsrv.domain.Produto;
 import com.pedro.painelsrv.domain.ProdutoImagem;
 import com.pedro.painelsrv.endpoint.dto.ProdutoDto;
-import com.pedro.painelsrv.util.Funcoes;
 import com.pedro.painelsrv.util.SQLBuilder;
 
 @Stateless
@@ -63,31 +64,31 @@ public class ProdutoBss extends Bss<Produto> {
 
 		// INCLUI OS JOINS
 		sql.appendJoin(
-				" LEFT JOIN ( SELECT PRODUTO_ID, URI_IMAGEM  FROM PRODUTO_IMAGEM WHERE PRINCIPAL = 1) URI_PRINCIPAL ON PRODUTO.ID = URI_PRINCIPAL.PRODUTO_ID ");
+				" INNER JOIN ( SELECT PRODUTO_ID, URI_IMAGEM  FROM PRODUTO_IMAGEM WHERE PRINCIPAL = 1) URI_PRINCIPAL ON PRODUTO.ID = URI_PRINCIPAL.PRODUTO_ID ");
 
 		sql.appendWhere(" PRODUTO.ID <> 0");
 
-		if (!Funcoes.validateUrlPram(id)) {
+		if (!validateUrlParam(id)) {
 			sql.appendWhere(" PRODUTO.ID = " + id);
 		}
 
-		if (!Funcoes.validateUrlPram(descricao)) {
+		if (!validateUrlParam(descricao)) {
 			sql.appendWhere(" and upper(PRODUTO.DESCRICAO) like '" + descricao.toUpperCase());
 			sql.appendWhere("%'");
 		}
 
-		if (!Funcoes.validateUrlPram(precoCompra)) {
+		if (!validateUrlParam(precoCompra)) {
 			sql.appendWhere(" and PRODUTO.PRECO_COMPRA= " + precoCompra);
 		}
-		if (!Funcoes.validateUrlPram(precoVenda)) {
+		if (!validateUrlParam(precoVenda)) {
 			sql.appendWhere(" and PRODUTO.PRECO_VENDA= " + precoVenda);
 		}
 
-		if (!Funcoes.validateUrlPram(dataDe)) {
+		if (!validateUrlParam(dataDe)) {
 			sql.appendWhere(" and trunc(PRODUTO.DATA_CADASTRO) >= " + "to_date('" + dataDe + "', 'DD/MM/YYYY')");
 		}
 
-		if (!Funcoes.validateUrlPram(dataAte)) {
+		if (!validateUrlParam(dataAte)) {
 			sql.appendWhere(" and trunc(PRODUTO.DATA_CADASTRO)  <= " + "to_date('" + dataAte + "', 'DD/MM/YYYY')");
 		}
 
