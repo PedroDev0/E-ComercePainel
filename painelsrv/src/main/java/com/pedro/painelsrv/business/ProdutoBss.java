@@ -2,15 +2,12 @@ package com.pedro.painelsrv.business;
 
 import static com.pedro.painelsrv.util.Funcoes.validateUrlParam;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import com.pedro.painelsrv.domain.Produto;
-import com.pedro.painelsrv.domain.ProdutoImagem;
-import com.pedro.painelsrv.endpoint.dto.ProdutoDto;
 import com.pedro.painelsrv.util.SQLBuilder;
 
 @Stateless
@@ -22,49 +19,26 @@ public class ProdutoBss extends Bss<Produto> {
 	ProdutoImagemBss imagemBss;
 
 	public List<Produto> getList() {
-
 		return dao.getList();
 	}
 
-	public ProdutoDto create(ProdutoDto entityDTO) {
-
-		entityDTO.getProduto().setDataCadastro(new Date());
-		entityDTO.getProduto().setId(dao.getNextPk("id"));
-		entityDTO.setProduto(dao.persit(entityDTO.getProduto()));
-
-		return entityDTO;
+	public Produto create(Produto entity) {
+		entity.getImagens().forEach(e-> e.setProduto(entity));
+		dao.persit(entity);
+		return dao.getEntity(entity.getId());
 	}
 
-	public ProdutoDto update(ProdutoDto entityDTO) {
+	public Produto update(Produto entity) {
 
-		entityDTO.setProduto(dao.merge(entityDTO.getProduto()));
-		criaImagens(entityDTO.getImagens(), entityDTO.getProduto().getId());
-
-		return entityDTO;
+		dao.merge(entity);
+		return entity;
 	}
 
-	private void criaImagens(List<ProdutoImagem> imagens, Integer idProduto) {
 
-		imagemBss.deleteAllByProd(idProduto);
-		for (ProdutoImagem produtoImagem : imagens) {
-			imagemBss.create(produtoImagem);
-		}
-	}
-
-	public List<Object[]> getListByCond(String id, String descricao, String precoCompra, String precoVenda,
+	public List<Produto> getListByCond(String id, String descricao, String precoCompra, String precoVenda,
 			String dataDe, String dataAte) {
 
 		SQLBuilder sql = new SQLBuilder("PRODUTO");
-		// SELECIONA CAMPOS SELECT NATIVO
-		sql.appendField("PRODUTO.ID");
-		sql.appendField("URI_PRINCIPAL.URI_IMAGEM");
-		sql.appendField("PRODUTO.DESCRICAO");
-		sql.appendField("PRODUTO.PRECO_VENDA");
-		sql.appendField("PRODUTO.PRECO_COMPRA");
-
-		// INCLUI OS JOINS
-		sql.appendJoin(
-				" INNER JOIN ( SELECT PRODUTO_ID, URI_IMAGEM  FROM PRODUTO_IMAGEM WHERE PRINCIPAL = 1) URI_PRINCIPAL ON PRODUTO.ID = URI_PRINCIPAL.PRODUTO_ID ");
 
 		if (!validateUrlParam(id)) {
 			sql.appendWhere(" PRODUTO.ID = " + id);
@@ -89,20 +63,16 @@ public class ProdutoBss extends Bss<Produto> {
 			sql.appendWhere(" trunc(PRODUTO.DATA_CADASTRO)  <= " + "to_date('" + dataAte + "', 'DD/MM/YYYY')");
 		}
 
-		return dao.getListByNativeQueryTypeless(sql.toString());
+		return dao.getListByCond(sql.toWhere());
 	}
 
-	public void delete(Integer pk) {
+	public boolean delete(Integer pk) {
 		dao.delete(pk);
+		return true;
 	}
 
-	public ProdutoDto getDTO(Integer id) {
-
-		ProdutoDto dto = new ProdutoDto();
-		dto.setProduto(dao.getEntity(id));
-		dto.setImagens(imagemBss.getListByProd(id));
-
-		return dto;
+	public Produto getDTO(Integer id) {
+		return dao.getEntity(id);
 	}
 
 }

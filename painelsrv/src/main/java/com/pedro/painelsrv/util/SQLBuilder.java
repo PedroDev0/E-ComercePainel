@@ -41,7 +41,7 @@ public class SQLBuilder {
 		if (field == null || field.trim().isEmpty()) {
 			throw new IllegalArgumentException("Field cannot be null or empty");
 		}
-		if (this.field.length() > 7) {
+		if (this.field.length() > 8) {
 			this.field.append(", ");
 		}
 		this.field.append(field);
@@ -176,7 +176,7 @@ public class SQLBuilder {
 	public StringBuilder build() {
 		StringBuilder sql = new StringBuilder();
 		sql.append(field).append(from).append(join);
-		if (where.length() > 6) {
+		if (where.length() > 8) {
 			sql.append(where);
 		}
 		if (groupBy.length() > 10) {

@@ -45,8 +45,8 @@ export class ProdutoComponent {
 
   doubleClickRow(codProduto: number) {
   
-    this.service.getProtudoDTO(codProduto).subscribe(produtoDTO => {
-      if (produtoDTO) {
+  this.service.getProtudoDTO(codProduto).subscribe(produto => {
+      if (produto) {
         let ref: DynamicDialogRef = this.utilService.showDialog(ProdutoFrmComponent, {
           header: 'Produto',
           width: '55vw',
@@ -56,13 +56,19 @@ export class ProdutoComponent {
           data: {
             novo: false,
             enable: true,
-            produtoDTO: produtoDTO
+            produto: produto
+          }
+        });
+
+        ref.onClose.subscribe(deletado=>{
+
+          if(deletado){
+              this.getList();
           }
         });
       }
     }
     )
-
   }
 
 

@@ -25,8 +25,8 @@ public class ProdutoImagemBss extends Bss<ProdutoImagem> {
 	}
 
 	public void create(ProdutoImagem produtoImagem) {
-		produtoImagem.getId().setId(dao.getNextPk("id.id"));
 		dao.persit(produtoImagem);
 	}
+
 
 }

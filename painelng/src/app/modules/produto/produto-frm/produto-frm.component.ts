@@ -2,12 +2,11 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FormGroupModel } from 'src/app/core/model/form-group.model';
-import { ProdutoDTO } from '../produto-dto.model';
-import { ProdutoService } from '../produto.service';
-import { ProdutoImagem } from './../../../core/model/produto-imagem.model';
-import { UtilService } from 'src/app/shared/services/util.service';
 import { ProdutoImagemId } from 'src/app/core/model/produto-imagem-id.model';
 import Produto from 'src/app/core/model/produto.model';
+import { UtilService } from 'src/app/shared/services/util.service';
+import { ProdutoService } from '../produto.service';
+import { ProdutoImagem } from './../../../core/model/produto-imagem.model';
 
 @Component({
   selector: 'cmp-produto-frm',
@@ -28,9 +27,9 @@ export class ProdutoFrmComponent implements OnInit {
   ngOnInit(): void {
     this.novo = this.config?.data?.novo;
 
-    if (this.config?.data?.produtoDTO) {
-      this.form.patchValue(this.config?.data?.produtoDTO.produto)
-      this.imagens = this.config?.data?.produtoDTO.imagens
+    if (this.config?.data?.produto) {
+      this.form.patchValue(this.config?.data?.produto)
+      this.imagens = this.config?.data?.produto.imagens
 
       this.imagens.forEach(e => {
         if (e?.principal) {
@@ -43,7 +42,6 @@ export class ProdutoFrmComponent implements OnInit {
   protected novo: boolean = false;
   protected principalImagem: ProdutoImagem;
   protected imagens: ProdutoImagem[] = [];
-  private entityDto: ProdutoDTO = new ProdutoDTO();
 
   form = new FormGroupModel<Produto>(new Produto(), new Map<string, any>([
     ["descricao", [Validators.required, Validators.maxLength(250), Validators.minLength(5)]],
@@ -60,27 +58,26 @@ export class ProdutoFrmComponent implements OnInit {
   salvar() {
 
     if (this.validaTela()) {
-      this.montaDto();
+      this.montaEntity();
 
       if (this.novo) {
-        this.service.create(this.entityDto).subscribe(entity => {
-          this.form.patchValue(entity.produto);
+        this.service.create(this.form.getRawValue()).subscribe(entity => {
+          this.form.patchValue(entity);
           this.imagens = entity.imagens;
           this.util.showInfo("Produto criado!");
         });
         return;
       }
 
-      this.service.update(this.entityDto).subscribe(entity => {
-        this.form.patchValue(entity.produto);
+      this.service.update(this.form.getRawValue()).subscribe(entity => {
+        this.form.patchValue(entity);
         this.imagens = entity.imagens;
         this.util.showInfo("Produto atualizado!");
       });
     }
   }
-  montaDto() {
-    this.entityDto.produto = this.form.getRawValue();
-    this.entityDto.imagens = this.imagens;
+  montaEntity() {
+    this.form.controls.imagens.patchValue(this.imagens);
   }
 
   validaTela(): boolean {
@@ -103,9 +100,14 @@ export class ProdutoFrmComponent implements OnInit {
       "Deletar Produto"
     ).then(confirmed => {
       if (confirmed) {
-        console.log("Produto deletado");
-      } else {
-        console.log("Ação cancelada");
+
+        this.service.delete(this.form.controls.id.getRawValue()).subscribe(deletado => {
+          if (deletado) {
+            this.util.showInfo("Produto deletado com sucesso!")
+            this.close(deletado);
+          }
+        }
+        );
       }
     });
 
@@ -113,8 +115,8 @@ export class ProdutoFrmComponent implements OnInit {
   }
 
 
-  close() {
-    this.ref.close();
+  close(deletato?: boolean) {
+    this.ref.close(deletato);
   }
 
   removeImage(imagemARemover: ProdutoImagem) {
@@ -135,14 +137,7 @@ export class ProdutoFrmComponent implements OnInit {
   createImagem(uri: string): ProdutoImagem {
 
     let imagem: ProdutoImagem = new ProdutoImagem();
-    imagem.id = new ProdutoImagemId();
-
-    imagem.id.produtoId = this.form.controls.id.getRawValue();
-    imagem.id.id = this.imagens?.length + 1;
     imagem.uriImagem = uri;
-
-    if (imagem.id.id == 1)
-      this.principalImagem = imagem;
 
     return imagem;
   }
