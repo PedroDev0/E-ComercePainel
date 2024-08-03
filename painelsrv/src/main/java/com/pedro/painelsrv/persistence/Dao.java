@@ -39,6 +39,20 @@ public class Dao<T> {
 		}
 		return query.getResultList();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<T> getListJoin(String cond) {
+
+		Query query = null;
+		try {
+			Entity annotetiopn = clazz.getAnnotation(Entity.class);
+			query = em.createQuery("select o from " + annotetiopn.name() + " o " + cond, clazz);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return query.getResultList();
+	}
 
 	@SuppressWarnings("unchecked")
 	public List<T> getListByCond(String cond) {

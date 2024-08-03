@@ -17,7 +17,7 @@ import { FiltrosProd } from './filttro-prod.model';
 export class ProdutoComponent {
 
 
-  protected products: any[] = [];
+  protected products: Produto[] = [];
   protected form = new FormGroupModel<FiltrosProd>(new FiltrosProd());
   protected selectedProduct: any;
   protected sidebarVisible2: boolean = false;

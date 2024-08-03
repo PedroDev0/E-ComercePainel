@@ -30,7 +30,6 @@ public class SQLBuilder {
 		groupBy.append(" GROUP BY ");
 		orderBy.append(" ORDER BY ");
 	}
-
 	/**
 	 * Adiciona um campo à cláusula {@code SELECT}.
 	 *

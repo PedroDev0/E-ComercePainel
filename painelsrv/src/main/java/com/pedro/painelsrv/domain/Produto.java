@@ -79,7 +79,7 @@ public class Produto {
         this.dataCadastro = dataCadastro;
     }
 
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
     public Set<ProdutoImagem> getImagens() {
         return imagens;
     }
