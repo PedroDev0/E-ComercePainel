@@ -51,6 +51,7 @@ export class ProdutoComponent {
           header: 'Produto',
           width: '55vw',
           height: '55vh',
+          contentStyle: { "overflow": "hidden", "max-height": "calc(80vh - 50px)" },
           closable: false,
           data: {
             novo: false,

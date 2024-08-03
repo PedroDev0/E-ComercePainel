@@ -7,6 +7,8 @@ import { SharedModule as MyShared } from 'src/app/shared/shared.module';
 import { GalleriaModule } from 'primeng/galleria';
 
 import { ProdutoFrmComponent } from './produto-frm/produto-frm.component';
+import { SharedModule } from 'primeng/api';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
 
 
 @NgModule({
@@ -18,7 +20,9 @@ import { ProdutoFrmComponent } from './produto-frm/produto-frm.component';
   imports: [
     ProdutoRoutingModule,
     GalleriaModule,
-    MyShared
+    MyShared,
+    SharedModule,
+    DynamicDialogModule
   ]
 })
 export class ProdutoModule { }

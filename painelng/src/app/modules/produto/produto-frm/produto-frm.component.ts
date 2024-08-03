@@ -43,7 +43,6 @@ export class ProdutoFrmComponent implements OnInit {
   protected novo: boolean = false;
   protected principalImagem: ProdutoImagem;
   protected imagens: ProdutoImagem[] = [];
-  private idToast: string = 'toast1';
   private entityDto: ProdutoDTO = new ProdutoDTO();
 
   form = new FormGroupModel<Produto>(new Produto(), new Map<string, any>([
@@ -67,7 +66,7 @@ export class ProdutoFrmComponent implements OnInit {
         this.service.create(this.entityDto).subscribe(entity => {
           this.form.patchValue(entity.produto);
           this.imagens = entity.imagens;
-          this.util.showInfo("Produto criado!", this.idToast);
+          this.util.showInfo("Produto criado!");
         });
         return;
       }
@@ -75,7 +74,7 @@ export class ProdutoFrmComponent implements OnInit {
       this.service.update(this.entityDto).subscribe(entity => {
         this.form.patchValue(entity.produto);
         this.imagens = entity.imagens;
-        this.util.showInfo("Produto atualizado!", this.idToast);
+        this.util.showInfo("Produto atualizado!");
       });
     }
   }
@@ -87,22 +86,30 @@ export class ProdutoFrmComponent implements OnInit {
   validaTela(): boolean {
 
     if (this.form.invalid) {
-      this.util.showWarn("Falta preencher alguns campos!", this.idToast);
-      this.util.showWarn("Favor verificar o formulário!", this.idToast);
+      this.util.showWarn("Falta preencher alguns campos!");
+      this.util.showWarn("Favor verificar o formulário!");
       return false;
     }
     if (this.imagens?.length <= 0) {
-      this.util.showWarn("Adicione pelo menos uma imagem!", this.idToast);
+      this.util.showWarn("Adicione pelo menos uma imagem!");
       return false;
     }
     return true;
   }
 
   apagar() {
-    this.util.showConfirmDialog("Deseja realmente apagar este produto?"
-      , 'Delte Produto');
-      console.log('apaguei');
-      
+    this.util.showConfirmDialog(
+      "Deseja realmente apagar este produto?",
+      "Deletar Produto"
+    ).then(confirmed => {
+      if (confirmed) {
+        console.log("Produto deletado");
+      } else {
+        console.log("Ação cancelada");
+      }
+    });
+
+
   }
 
 
@@ -116,7 +123,7 @@ export class ProdutoFrmComponent implements OnInit {
   addImage(input: any) {
 
     if (!input.value) {
-      this.util.showWarn("Digite uma url válida!", this.idToast);
+      this.util.showWarn("Digite uma url válida!");
       return;
     }
     //Cria Imagem

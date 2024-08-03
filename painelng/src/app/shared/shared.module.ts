@@ -19,6 +19,8 @@ import { ToastModule } from 'primeng/toast';
 import { MessagesModule } from 'primeng/messages';
 import { CheckboxModule } from 'primeng/checkbox';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+
 
 @NgModule({
 
@@ -43,7 +45,8 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     ToastModule,
     MessagesModule,
     CheckboxModule,
-    RadioButtonModule
+    RadioButtonModule,
+    ConfirmDialogModule
   ],
   imports: [
     CommonModule,
@@ -64,7 +67,8 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     ToastModule,
     MessagesModule,
     CheckboxModule,
-    RadioButtonModule
+    RadioButtonModule,
+    ConfirmDialogModule
     
   ]
 })

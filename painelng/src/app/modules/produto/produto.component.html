@@ -1,8 +1,7 @@
 <div class="flex flex-column h-full gap-2">
 
-    <p-card class="flex-1  w-full">
-
-        <p-sidebar [(visible)]="sidebarVisible2" position="right">
+    <p-card class="flex-1  w-full h-full">
+        <p-sidebar [(visible)]="sidebarVisible2" styleClass="w-30rem" position="right">
             <form [formGroup]="form" class="gap-2">
                 <div class="flex gap-2">
                     <div class="field">
@@ -49,17 +48,26 @@
             </ng-template>
 
         </p-sidebar>
-        <div class=" flex justify-content-between">
+        <div class="flex justify-content-between">
             <div>
                 <h1>
                     Produtos
                 </h1>
             </div>
-            <div class="flex gap-2">
-                <button class="mb-2" pButton icon="pi pi-search" label="Pesquisar" (click)="getList()"></button>
-                <button class="mb-2" pButton icon="pi pi-filter" label="Filtros"
+            <div class="flex gap-2 align-items-center">
+                <div>
+                    <button class="mb-2" pButton icon="pi pi-search" label="Pesquisar" (click)="getList()"></button>
+
+                </div>
+                <div>
+                    <button class="mb-2" pButton icon="pi pi-filter" label="Filtros"
                     (click)="sidebarVisible2 = true"></button>
-                <button class="mb-2" pButton icon="pi pi-plus" label="Novo" (click)="showFrm()"></button>
+
+                </div>
+                <div>
+                    <button class="mb-2" pButton icon="pi pi-plus" label="Novo" (click)="showFrm()"></button>
+
+                </div>
             </div>
         </div>
 

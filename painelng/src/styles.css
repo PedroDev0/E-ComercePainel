@@ -10,6 +10,7 @@ body {
     font-size: 13px !important;
     overflow: hidden;
     position: relative; 
+    margin: 0;
 }
 
 cmp-template {
@@ -45,43 +46,4 @@ cmp-main {
     font-style: bold !important;
     font-weight: 600 !important;
 }
-.p-button-label {
-    margin-left: 0.5rem;
-}
 
-cmp-produto {
-    height: 100%;
-}
-cmp-home{
-    height: 100%;
-}
-
-.p-dialog-title{
-    font-style: bold !important;
-    font-weight: 750 !important;
-}
-.p-card{
-    height: 100%;
-}
-.p-dialog-content {
-padding: 0.5rem;
-}
-.p-sidebar-right {
-    width: 35rem;
-}
-.p-inputnumber{
-    width: 100%;
-}
-.p-calendar{
-    width: 100%;
-}
-.p-calendar>.p-button>.p-button-icon-only {
-    width: 35px;
-    padding: 0;
-}
-.p-toast .p-toast-message .p-toast-message-content .p-toast-summary {
-    margin: 0.2rem !important;
-}
-.p-toast-message-content {
-    gap: 1.5rem;
-}
