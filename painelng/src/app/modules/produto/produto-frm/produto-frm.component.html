@@ -1,88 +1,83 @@
-<div class="flex flex-column h-full gap-3">
-
-    <div class="flex-1">
-
-        <p-tabView>
-            <p-tabPanel header="Dados Básicos"  [formGroup]="form">
-                <ng-template pTemplate="content">
-                    <div class="flex gap-2">
-                        <div class="field">
-                            <label>Cód. Produto</label>
-                            <p-inputNumber formControlName="id" mode="decimal" [maxlength]="9" cmpDisableListener
-                                [disableValue]="true" />
-                        </div>
-                        <div class="field ">
-                            <label>Data Cadastro</label>
-                            <p-calendar formControlName="dataCadastro" [showIcon]="true" cmpDisableListener
-                                [disableValue]="true"></p-calendar>
-                        </div>
-
-                        <div class="field w-full">
-                            <label>Descrição</label>
-                            <input pInputText formControlName="descricao" />
-                        </div>
+<p-tabView class="w-full" >
+    <p-tabPanel header="Dados Básicos" [formGroup]="form">
+        <ng-template pTemplate="content">
+            <div class="flex gap-2">
+                <div class="field">
+                    <label>Cód. Produto</label>
+                    <p-inputNumber formControlName="id" mode="decimal" [maxlength]="9" cmpDisableListener
+                        [disableValue]="true" />
+                </div>
+                <div class="field w-3">
+                    <label>Data Cadastro</label>
+                    <p-calendar formControlName="dataCadastro" [showIcon]="true" cmpDisableListener
+                        [disableValue]="true"></p-calendar>
+                </div>
+                <div class="field w-full">
+                    <label>Descrição</label>
+                    <input pInputText formControlName="descricao" />
+                </div>
+            </div>
+            <div class="flex gap-2">
+                <div class="field">
+                    <label>Preço Compra</label>
+                    <p-inputNumber mode="currency" formControlName="precoCompra" [useGrouping]="false" currency="BRL"
+                        locale="pt-BR" cmpDisableListener />
+                </div>
+                <div class="field">
+                    <label>Preço Venda</label>
+                    <div>
+                        <p-inputNumber mode="currency" formControlName="precoVenda" [useGrouping]="false" currency="BRL"
+                            locale="pt-BR" cmpDisableListener />
                     </div>
-                    <div class="flex gap-2">
-                        <div class="field">
-                            <label>Preço Compra</label>
-                            <p-inputNumber mode="currency" formControlName="precoCompra" [useGrouping]="false"
-                                currency="BRL" locale="pt-BR" cmpDisableListener />
-                        </div>
-                        <div class="field">
-                            <label>Preço Venda</label>
-                            <div>
-                                <p-inputNumber mode="currency" formControlName="precoVenda" [useGrouping]="false"
-                                    currency="BRL" locale="pt-BR" cmpDisableListener />
-                            </div>
-                        </div>
-                    </div>
-                </ng-template>
-            </p-tabPanel>
-            <p-tabPanel header="Imagem">
-                <ng-template pTemplate="content">
-                    <p-toast key="toast1" position="top-center"></p-toast>
-                    <div class="field w-full">
-                        <label>Link</label>
-                        <div class="flex gap-2">
+                </div>
+            </div>
+        </ng-template>
+    </p-tabPanel>
+    <p-tabPanel header="Imagem">
+        <ng-template pTemplate="content">
 
-                            <input #link class="w-full" pInputText />
-                            
-                            <button pButton icon="pi pi-plus" (click)="addImage(link)" title="Remove Imagem"></button>
-                        </div>
-                    </div>
-                    <p-card>
+            <div class="field w-full">
+                <label>Link</label>
+                <div class="flex gap-2">
 
-                        <p-table [value]="imagens" [scrollable]="true" [tableStyle]="{ 'min-height': '223px' }"
-                            scrollHeight="223px" selectionMode="single" dataKey="id.id">
-                            <ng-template pTemplate="header">
-                                <tr>
-                                    <th>Cód. Imagem</th>
-                                    <th>Imagem</th>
-                                    <th>Principal</th>
-                                    <th></th>
-                                </tr>
-                            </ng-template>
-                            <ng-template pTemplate="body" let-imagem>
-                                <tr [pSelectableRow]="imagem">
-                                    <td>{{ imagem.id.id }} </td>
-                                    <td> <img [src]="imagem.uriImagem" width="100" class="shadow-4" /></td>
-                                    <td>  <p-checkbox 
-                                            [ngModel]="imagem.id.id == principalImagem?.id?.id" [binary]="true"
-                                            (onChange)="onPrincipalChange($event,imagem)"></p-checkbox></td>
-                                            <td><button pButton icon="pi pi-times" class="p-button-danger" (click)="removeImage(imagem)" title="Adiciona Imagem"></button> </td>
-                                </tr>
-                            </ng-template>
-                        </p-table>
-                    </p-card>
-                </ng-template>
-            </p-tabPanel>
-        </p-tabView>
+                    <input #link class="w-full" pInputText />
 
-    </div>
-    <div class="flex justify-content-end align-items-center gap-2">
-        <button pButton class="p-button-danger" icon="pi pi-trash" [disabled]="novo" title="Apagar"
-            (click)="apagar()"></button>
-        <button pButton icon="pi pi-times" (click)="cancelar()" title="Cancelar"></button>
-        <button pButton icon="pi pi-check" [disabled]="!form.valid" title="Salvar" (click)="salvar()"></button>
-    </div>
+                    <button pButton icon="pi pi-plus" (click)="addImage(link)" title="Remove Imagem"></button>
+                </div>
+            </div>
+            <p-card>
+
+                <p-table [value]="imagens" [scrollable]="true"   scrollHeight="221px" selectionMode="single" dataKey="id.id">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Cód. Imagem</th>
+                            <th>Imagem</th>
+                            <th>Principal</th>
+                            <th></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-imagem>
+                        <tr [pSelectableRow]="imagem">
+                            <td>{{ imagem.id.id }} </td>
+                            <td> <img [src]="imagem.uriImagem" width="100" class="shadow-4" /></td>
+                            <td>
+                                {{imagem.principal}}
+                                <p-radioButton [(ngModel)]="imagem.principal" name="principal" [value]="true"
+                                    [ngModelOptions]="{standalone: true}"></p-radioButton>
+                            </td>
+                            <td><button pButton icon="pi pi-times" class="p-button-danger" (click)="removeImage(imagem)"
+                                    title="Adiciona Imagem"></button> </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-card>
+        </ng-template>
+    </p-tabPanel>
+
+</p-tabView>
+
+<div class="flex gap-2 justify-content-end ">
+    <button pButton class="p-button-danger" icon="pi pi-trash" [disabled]="novo" title="Apagar" (click)="apagar()"></button>
+    <button pButton icon="pi pi-times" (click)="cancelar()" title="Cancelar"></button>
+    <button pButton icon="pi pi-check" [disabled]="!form.valid" title="Salvar" (click)="salvar()"></button>
 </div>

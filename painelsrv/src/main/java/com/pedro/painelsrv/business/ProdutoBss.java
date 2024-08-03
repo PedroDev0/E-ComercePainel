@@ -66,30 +66,27 @@ public class ProdutoBss extends Bss<Produto> {
 		sql.appendJoin(
 				" INNER JOIN ( SELECT PRODUTO_ID, URI_IMAGEM  FROM PRODUTO_IMAGEM WHERE PRINCIPAL = 1) URI_PRINCIPAL ON PRODUTO.ID = URI_PRINCIPAL.PRODUTO_ID ");
 
-		sql.appendWhere(" PRODUTO.ID <> 0");
-
 		if (!validateUrlParam(id)) {
 			sql.appendWhere(" PRODUTO.ID = " + id);
 		}
 
 		if (!validateUrlParam(descricao)) {
-			sql.appendWhere(" and upper(PRODUTO.DESCRICAO) like '" + descricao.toUpperCase());
-			sql.appendWhere("%'");
+			sql.appendWhere(" upper(PRODUTO.DESCRICAO) like '" + descricao.toUpperCase() + "%'");
 		}
 
 		if (!validateUrlParam(precoCompra)) {
-			sql.appendWhere(" and PRODUTO.PRECO_COMPRA= " + precoCompra);
+			sql.appendWhere("  PRODUTO.PRECO_COMPRA= " + precoCompra);
 		}
 		if (!validateUrlParam(precoVenda)) {
-			sql.appendWhere(" and PRODUTO.PRECO_VENDA= " + precoVenda);
+			sql.appendWhere(" PRODUTO.PRECO_VENDA= " + precoVenda);
 		}
 
 		if (!validateUrlParam(dataDe)) {
-			sql.appendWhere(" and trunc(PRODUTO.DATA_CADASTRO) >= " + "to_date('" + dataDe + "', 'DD/MM/YYYY')");
+			sql.appendWhere(" trunc(PRODUTO.DATA_CADASTRO) >= " + "to_date('" + dataDe + "', 'DD/MM/YYYY')");
 		}
 
 		if (!validateUrlParam(dataAte)) {
-			sql.appendWhere(" and trunc(PRODUTO.DATA_CADASTRO)  <= " + "to_date('" + dataAte + "', 'DD/MM/YYYY')");
+			sql.appendWhere(" trunc(PRODUTO.DATA_CADASTRO)  <= " + "to_date('" + dataAte + "', 'DD/MM/YYYY')");
 		}
 
 		return dao.getListByNativeQueryTypeless(sql.toString());
