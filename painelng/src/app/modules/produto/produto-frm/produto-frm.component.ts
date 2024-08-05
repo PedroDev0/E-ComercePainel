@@ -61,6 +61,8 @@ export class ProdutoFrmComponent implements OnInit {
       this.montaEntity();
 
       if (this.novo) {
+       
+        this.form.controls.dataCadastro.patchValue(new Date());
         this.service.create(this.form.getRawValue()).subscribe(entity => {
           this.form.patchValue(entity);
           this.imagens = entity.imagens;

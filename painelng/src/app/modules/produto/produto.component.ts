@@ -45,7 +45,9 @@ export class ProdutoComponent {
 
   doubleClickRow(codProduto: number) {
   
-  this.service.getProtudoDTO(codProduto).subscribe(produto => {
+  this.service.getProtudo(codProduto).subscribe(produto => {
+    console.log(produto);
+    
       if (produto) {
         let ref: DynamicDialogRef = this.utilService.showDialog(ProdutoFrmComponent, {
           header: 'Produto',

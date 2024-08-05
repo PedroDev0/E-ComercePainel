@@ -10,8 +10,8 @@ export class ProdutoService {
 
   constructor(private http: HttpClient) { }
 
-  getProtudoDTO(pk: number): Observable<Produto> {
-    return this.http.get<Produto>(API_URL + '/product/dto/' + pk);
+  getProtudo(pk: number): Observable<Produto> {
+    return this.http.get<Produto>(API_URL + '/product/' + pk);
   }
   getListProduto(form: any): Observable<any[]> {
     return this.http.get<any[]>(API_URL + '/product?' + new URLSearchParams(form).toString());
