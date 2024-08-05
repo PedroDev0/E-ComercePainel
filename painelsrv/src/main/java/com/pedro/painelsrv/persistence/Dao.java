@@ -39,7 +39,7 @@ public class Dao<T> {
 		}
 		return query.getResultList();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<T> getListJoin(String cond) {
 
@@ -74,6 +74,7 @@ public class Dao<T> {
 		Query query = em.createNativeQuery(condicao);
 		return query.getResultList();
 	}
+
 	public T update(T entity) {
 
 		return em.merge(entity);
@@ -87,6 +88,21 @@ public class Dao<T> {
 	public T getEntity(Object pk) {
 		return em.find(clazz, pk);
 	}
+
+	@SuppressWarnings("unchecked")
+	public T getEntityByCond(String cond) {
+
+		Query query = null;
+		try {
+			Entity annotetiopn = clazz.getAnnotation(Entity.class);
+			query = em.createQuery("select o from " + annotetiopn.name() + " o " + cond, clazz);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return (T) query.getSingleResult();
+	}
+
 
 	public Integer getNextPk(String pk) {
 		return getMaxInt(pk) + 1;

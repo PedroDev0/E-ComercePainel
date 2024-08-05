@@ -45,9 +45,9 @@ public class ProdutoEp {
 	}
 
 	@GET
-	@Path("/dto/{id}")
-	public Produto getDTO(@PathParam("id") Integer id) {
-		return prodBss.getDTO(id);
+	@Path("/{id}")
+	public Produto getEntity(@PathParam("id") Integer id) {
+		return prodBss.getEntity(id);
 	}
 
 

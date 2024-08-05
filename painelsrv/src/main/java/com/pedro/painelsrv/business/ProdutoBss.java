@@ -62,7 +62,7 @@ public class ProdutoBss extends Bss<Produto> {
 			sql.appendWhere(" trunc(o.dataCadastro)  <= " + "to_date('" + dataAte + "', 'DD/MM/YYYY')");
 		}
 
-		return dao.getListJoin(" join fetch o.imagens i " + sql.toWhere());
+		return dao.getListJoin(" join fetch o.imagens i ");
 	}
 
 	public boolean delete(Integer pk) {
@@ -70,8 +70,9 @@ public class ProdutoBss extends Bss<Produto> {
 		return true;
 	}
 
-	public Produto getDTO(Integer id) {
-		return dao.getEntity(id);
+	public Produto getEntity(Integer id) {
+		
+		return dao.getEntityByCond(" join fetch o.imagens where o.id=" +id);
 	}
 
 }
