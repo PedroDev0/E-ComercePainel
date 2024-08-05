@@ -30,7 +30,7 @@ public class ProdutoBss extends Bss<Produto> {
 	public Produto update(Produto entity) {
 
 		dao.merge(entity);
-		return entity;
+		return dao.getEntity(entity.getId());
 	}
 
 	public List<Produto> getListByCond(String id, String descricao, String precoCompra, String precoVenda,
@@ -62,7 +62,7 @@ public class ProdutoBss extends Bss<Produto> {
 			sql.appendWhere(" trunc(o.dataCadastro)  <= " + "to_date('" + dataAte + "', 'DD/MM/YYYY')");
 		}
 
-		return dao.getListJoin(" join fetch o.imagens i ");
+		return dao.getListJoin(" join fetch o.imagens i " + sql.toWhere());
 	}
 
 	public boolean delete(Integer pk) {

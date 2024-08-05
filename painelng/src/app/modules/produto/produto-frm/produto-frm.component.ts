@@ -31,12 +31,15 @@ export class ProdutoFrmComponent implements OnInit {
       this.form.patchValue(this.config?.data?.produto)
       this.imagens = this.config?.data?.produto.imagens
 
-      this.imagens.forEach(e => {
-        if (e?.principal) {
-          this.principalImagem = e;
-        }
-      });
+      this.reloadImagens();
     }
+  }
+  reloadImagens() {
+    this.imagens.forEach(imagem => {
+      if (imagem?.principal) {
+        this.principalImagem = imagem;
+      }
+    });
   }
 
   protected novo: boolean = false;
@@ -61,7 +64,7 @@ export class ProdutoFrmComponent implements OnInit {
       this.montaEntity();
 
       if (this.novo) {
-       
+
         this.form.controls.dataCadastro.patchValue(new Date());
         this.service.create(this.form.getRawValue()).subscribe(entity => {
           this.form.patchValue(entity);
@@ -74,6 +77,7 @@ export class ProdutoFrmComponent implements OnInit {
       this.service.update(this.form.getRawValue()).subscribe(entity => {
         this.form.patchValue(entity);
         this.imagens = entity.imagens;
+        this.reloadImagens();
         this.util.showInfo("Produto atualizado!");
       });
     }
@@ -123,6 +127,9 @@ export class ProdutoFrmComponent implements OnInit {
 
   removeImage(imagemARemover: ProdutoImagem) {
     this.imagens = this.imagens.filter(imagem => imagemARemover !== imagem);
+    if (this.principalImagem === imagemARemover) {
+      this.principalImagem = null;;
+    }
   }
   addImage(input: any) {
 
@@ -143,19 +150,8 @@ export class ProdutoFrmComponent implements OnInit {
 
     return imagem;
   }
-  onPrincipalChange(event: any, imagem: ProdutoImagem) {
-
-    //imagem da vez
-    imagem.principal = event.checked;
-
-    if (event.checked) {
-      this.principalImagem = imagem;
-
-      this.imagens.forEach(img => {
-        if (img !== imagem) {
-          img.principal = false;
-        }
-      });
-    }
+  onImageSelect(imagem: any) {
+    this.principalImagem = imagem;
+    this.imagens.forEach(img => img.principal = (img === imagem));
   }
 }

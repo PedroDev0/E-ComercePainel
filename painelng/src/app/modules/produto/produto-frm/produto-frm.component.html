@@ -61,9 +61,13 @@
                             <td> {{imagem.id}}</td>
                             <td> <img [src]="imagem.uriImagem" width="100" class="shadow-4" /></td>
                             <td>
-                                {{imagem.principal}}
-                                <p-radioButton [(ngModel)]="imagem.principal" name="principal" [value]="true"
-                                    [ngModelOptions]="{standalone: true}"></p-radioButton>
+                                <p-radioButton 
+                                [(ngModel)]="principalImagem" 
+                                name="principal" 
+                                [value]="imagem"
+                                [ngModelOptions]="{standalone: true}"
+                                (onChange)="onImageSelect(imagem)">
+                            </p-radioButton>
                             </td>
                             <td><button pButton icon="pi pi-times" class="p-button-danger" (click)="removeImage(imagem)"
                                     title="Adiciona Imagem"></button> </td>
