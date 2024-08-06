@@ -32,8 +32,8 @@ public class ProdutoImagem implements java.io.Serializable {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
-    @SequenceGenerator(name = "global_seq", sequenceName = "global_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "produto_imagem_seq")
+    @SequenceGenerator(name = "global_seq", sequenceName = "produto_imagem_seq", allocationSize = 1)
     @Column(name = "ID")
     public Integer getId() {
         return id;

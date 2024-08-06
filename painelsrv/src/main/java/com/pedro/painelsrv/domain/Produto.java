@@ -32,9 +32,9 @@ public class Produto {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
-    @SequenceGenerator(name = "global_seq", sequenceName = "global_sequence", allocationSize = 1)
-    @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "produto_seq")
+    @SequenceGenerator(name = "global_seq", sequenceName = "produto_seq", allocationSize = 1)
+    @Column(name = "ID", length = 9)
     public Integer getId() {
         return id;
     }
@@ -43,7 +43,7 @@ public class Produto {
         this.id = id;
     }
 
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO", length = 300)
     public String getDescricao() {
         return descricao;
     }
@@ -52,7 +52,7 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    @Column(name = "PRECO_COMPRA")
+    @Column(name = "PRECO_COMPRA" , length = 32 , scale = 16)
     public BigDecimal getPrecoCompra() {
         return precoCompra;
     }
@@ -61,7 +61,7 @@ public class Produto {
         this.precoCompra = precoCompra;
     }
 
-    @Column(name = "PRECO_VENDA")
+    @Column(name = "PRECO_VENDA"  , length = 32 , scale = 16)
     public BigDecimal getPrecoVenda() {
         return precoVenda;
     }
