@@ -43,7 +43,7 @@ public class ProdutoImagem implements java.io.Serializable {
         this.id = id;
     }
 
-    @Column(name = "PRINCIPAL")
+    @Column(name = "PRINCIPAL", length = 1)
     public Boolean getPrincipal() {
         return principal;
     }
@@ -52,7 +52,7 @@ public class ProdutoImagem implements java.io.Serializable {
         this.principal = principal;
     }
 
-    @Column(name = "URI_IMAGEM")
+    @Column(name = "URI_IMAGEM",length = 300)
     public String getUriImagem() {
         return uriImagem;
     }
