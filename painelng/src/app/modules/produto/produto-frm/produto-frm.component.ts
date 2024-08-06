@@ -24,9 +24,19 @@ export class ProdutoFrmComponent implements OnInit {
     private util: UtilService) {
 
   }
-  ngOnInit(): void {
-    this.novo = this.config?.data?.novo;
+  protected novo: boolean = false;
+  protected principalImagem: ProdutoImagem;
+  protected imagens: ProdutoImagem[] = [];
+  form = new FormGroupModel<Produto>(new Produto(), new Map<string, any>([
+    ["descricao", [Validators.required, Validators.maxLength(250), Validators.minLength(5)]],
+    ["precoCompra", [Validators.required, Validators.min(0.01)]],
+    ["precoVenda", [Validators.required, Validators.min(0.01)]],
+    ["uriImage", [Validators.required, Validators.min(0.01)]]
+  ]));
 
+  ngOnInit(): void {
+
+    this.novo = this.config?.data?.novo;
     if (this.config?.data?.produto) {
       this.form.patchValue(this.config?.data?.produto)
       this.imagens = this.config?.data?.produto.imagens
@@ -41,18 +51,6 @@ export class ProdutoFrmComponent implements OnInit {
       }
     });
   }
-
-  protected novo: boolean = false;
-  protected principalImagem: ProdutoImagem;
-  protected imagens: ProdutoImagem[] = [];
-
-  form = new FormGroupModel<Produto>(new Produto(), new Map<string, any>([
-    ["descricao", [Validators.required, Validators.maxLength(250), Validators.minLength(5)]],
-    ["precoCompra", [Validators.required, Validators.min(0.01)]],
-    ["precoVenda", [Validators.required, Validators.min(0.01)]],
-    ["uriImage", [Validators.required, Validators.min(0.01)]]
-  ]));
-
 
   cancelar() {
     this.close();
@@ -70,6 +68,7 @@ export class ProdutoFrmComponent implements OnInit {
           this.form.patchValue(entity);
           this.imagens = entity.imagens;
           this.util.showInfo("Produto criado!");
+          this.novo = false;
         });
         return;
       }
@@ -77,6 +76,7 @@ export class ProdutoFrmComponent implements OnInit {
       this.service.update(this.form.getRawValue()).subscribe(entity => {
         this.form.patchValue(entity);
         this.imagens = entity.imagens;
+        
         this.reloadImagens();
         this.util.showInfo("Produto atualizado!");
       });
@@ -97,6 +97,19 @@ export class ProdutoFrmComponent implements OnInit {
       this.util.showWarn("Adicione pelo menos uma imagem!");
       return false;
     }
+    let isPrincipal =  false;
+
+    this.imagens.forEach(e => { 
+      if( e.principal) {
+        isPrincipal = true;
+        return;
+      }
+    });
+    if(!isPrincipal){
+      this.util.showWarn("Selecione pelo menos uma imagem principal!");
+      return isPrincipal;
+    }
+
     return true;
   }
 
@@ -116,8 +129,6 @@ export class ProdutoFrmComponent implements OnInit {
         );
       }
     });
-
-
   }
 
 
@@ -147,7 +158,7 @@ export class ProdutoFrmComponent implements OnInit {
 
     let imagem: ProdutoImagem = new ProdutoImagem();
     imagem.uriImagem = uri;
-
+    imagem.principal = false;
     return imagem;
   }
   onImageSelect(imagem: any) {

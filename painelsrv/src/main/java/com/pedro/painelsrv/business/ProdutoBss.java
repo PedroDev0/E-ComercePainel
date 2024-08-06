@@ -22,7 +22,6 @@ public class ProdutoBss extends Bss<Produto> {
 	}
 
 	public Produto create(Produto entity) {
-		entity.getImagens().forEach(e -> e.setProduto(entity));
 		dao.persit(entity);
 		return dao.getEntity(entity.getId());
 	}
