@@ -96,5 +96,5 @@ Antes de começar, certifique-se de ter os seguintes requisitos instalados:
        NOT DEFERRABLE;
 ### Front-end
 Instale as dependências e inicie o servidor de desenvolvimento:
-  npm install
-  ng serve
+ - npm install
+ - ng serve
