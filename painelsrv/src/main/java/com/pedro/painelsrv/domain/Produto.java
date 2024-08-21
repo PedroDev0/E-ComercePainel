@@ -33,7 +33,7 @@ public class Produto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "produto_seq")
-    @SequenceGenerator(name = "global_seq", sequenceName = "produto_seq", allocationSize = 1)
+    @SequenceGenerator(name = "produto_seq", sequenceName = "produto_seq", allocationSize = 1)
     @Column(name = "ID", length = 9)
     public Integer getId() {
         return id;
