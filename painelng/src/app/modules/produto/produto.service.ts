@@ -17,7 +17,7 @@ export class ProdutoService {
   getListProduto(form: any): Observable<any[]> {
   
     const params = this.httpParamsService.toHttpParams(form);
-    return this.http.get<any[]>(API_URL + '/products/all',{ params});
+    return this.http.get<any[]>(API_URL + '/products/all');
   }
   update(entity: Produto): Observable<Produto> {
     return this.http.put<Produto>(API_URL + "/products/update", entity);
