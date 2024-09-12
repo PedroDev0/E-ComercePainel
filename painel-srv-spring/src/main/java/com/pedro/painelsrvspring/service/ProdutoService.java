@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pedro.painelsrvspring.dto.ProdutoDTO;
+import com.pedro.painelsrvspring.mapper.ProdutoMapper;
 import com.pedro.painelsrvspring.model.Produto;
 import com.pedro.painelsrvspring.repository.ProdutoRepository;
 
@@ -18,8 +19,11 @@ public class ProdutoService {
 
 	public List<ProdutoDTO> getAllProducts() {
 		
-		List<Produto> produtos = produtoRepository.findAll();
-		return produtos.stream().map(ProdutoDTO::new).collect(Collectors.toList());
+		 List<Produto> produtos = produtoRepository.findAll();
+	        return produtos.stream()
+	                .map(ProdutoMapper::toDTO)
+	                .collect(Collectors.toList());
 	}
+
 
 }
