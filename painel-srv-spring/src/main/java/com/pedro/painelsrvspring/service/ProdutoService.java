@@ -19,8 +19,7 @@ public class ProdutoService {
 	public List<ProdutoDTO> getAllProducts() {
 		
 		List<Produto> produtos = produtoRepository.findAll();
-		 return produtos.stream()
-                .map(ProdutoDTO::fromEntity)
-                .collect(Collectors.toList());
+		return produtos.stream().map(ProdutoDTO::new).collect(Collectors.toList());
 	}
+
 }
