@@ -1,5 +1,7 @@
 package com.pedro.painelsrvspring.service;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,13 +19,17 @@ public class ProdutoService {
 	@Autowired
 	private ProdutoRepository produtoRepository;
 
-	public List<ProdutoDTO> getAllProducts() {
-		
-		 List<Produto> produtos = produtoRepository.findAll();
-	        return produtos.stream()
-	                .map(ProdutoMapper::toDTO)
-	                .collect(Collectors.toList());
+	public List<ProdutoDTO> getAllProducts(Integer id, String descricao, Date dataDe, Date dataAte,
+			BigDecimal precoVenda, BigDecimal precoCompra) {
+
+		List<Produto> produtos = produtoRepository.findAllByCond(id, descricao, dataDe, dataAte, precoVenda,
+				precoCompra);
+		return produtos.stream().map(ProdutoMapper::toDTO).collect(Collectors.toList());
 	}
 
+	public ProdutoDTO getById(Integer id) {
+		
+		return ProdutoMapper.toDTO(produtoRepository.findById(id).get());
+	}
 
 }
