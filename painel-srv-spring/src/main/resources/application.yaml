@@ -1,4 +1,8 @@
 spring:
+  jackson:
+    date-format: dd/MM/yyyy
+    time-zone: America/Sao_Paulo
+
   datasource:
     url: jdbc:h2:mem:mydb
     username: test
@@ -12,3 +16,4 @@ spring:
   h2:
     console:
       enabled: true
+ 
