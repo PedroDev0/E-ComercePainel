@@ -4,10 +4,11 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.pedro.painelsrvspring.model.Produto;
 
 public record ProdutoDTO(Integer id, String descricao, BigDecimal precoCompra, BigDecimal precoVenda, Date dataCadastro,
-		List<ProdutoImagemDTO> imagens) {
+		  @JsonDeserialize(contentAs = ProdutoImagemDTO.class) List<ProdutoImagemDTO> imagens) {
 
 	public ProdutoDTO(Produto produto) {
 		this(produto.getId(), 
