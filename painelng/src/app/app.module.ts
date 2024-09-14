@@ -1,15 +1,14 @@
 import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { DatePipe, registerLocaleData } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import localePt from '@angular/common/locales/pt';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 import { TempladeModule } from './shared/templade/template.module';
-import { DatePipe, registerLocaleData } from '@angular/common';
-import localePt from '@angular/common/locales/pt';
-import { HttpFormatInterceptor } from './core/interceptors/http.interceptor';
 
 registerLocaleData(localePt);
 
@@ -30,8 +29,7 @@ registerLocaleData(localePt);
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR' },
-    { provide: DEFAULT_CURRENCY_CODE, useValue: 'BRL', },
-    { provide: HTTP_INTERCEPTORS, useClass: HttpFormatInterceptor, multi: true }
+    { provide: DEFAULT_CURRENCY_CODE, useValue: 'BRL', }
   ],
   bootstrap: [AppComponent]
   
