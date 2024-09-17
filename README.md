@@ -10,7 +10,7 @@ Este projeto é um sistema de e-commerce para gerenciamento de produtos. O front
   - **Web:** Spring MVC
   - **Persistência de Dados:** Spring Data JPA
   - **Banco de Dados:** H2 Database
- **Back-end:** Java Sem Spring Boot
+- **Back-end:** Java Sem Spring Boot
    - **Servidor de Aplicação:** WildFly
    - **Persistência de Dados:** JPA
    - **APIs RESTful:** JAX-RS
