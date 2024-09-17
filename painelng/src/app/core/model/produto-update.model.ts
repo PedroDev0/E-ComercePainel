@@ -3,6 +3,7 @@ import Produto from "./produto.model";
 
 export class ProdutoUpdate {
     public id: number;
+    public descricao:string
     public precoCompra: number;
     public precoVenda: number;
     public imagens: ProdutoImagem[];
@@ -12,5 +13,6 @@ export class ProdutoUpdate {
         this.precoCompra = produto.precoCompra;
         this.precoVenda = produto.precoVenda;
         this.imagens = produto.imagens;
+        this.descricao = produto.descricao;
     }
 }
