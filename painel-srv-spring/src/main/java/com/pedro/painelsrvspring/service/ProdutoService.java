@@ -3,6 +3,7 @@ package com.pedro.painelsrvspring.service;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +37,33 @@ public class ProdutoService {
 
 	@Transactional
 	public Produto update(ProdutoUpdateDTO dto) {
+		
 		Produto produto = produtoRepository.getReferenceById(dto.id());
 		produto.update(dto);
 		return produto;
 	}
 
+	@Transactional
+	public Produto create(ProdutoUpdateDTO dto) {
+		
+		Produto produto;
+		if (Objects.isNull(dto.id())) {
+			produto = new Produto();
+			produto.create(dto);
+			produto = produtoRepository.save(produto);
+			return produto;
+		}
+
+		produto = produtoRepository.getReferenceById(dto.id());
+		produto.update(dto);
+		return produto;
+	}
+
+
+	@Transactional
+	public void deleteProductById(Integer id) {
+		
+		produtoRepository.deleteById(id);
+	}
 
 }
