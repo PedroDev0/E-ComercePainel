@@ -1,6 +1,6 @@
 # E-Commerce Painel
 
-Este projeto é um sistema de e-commerce para gerenciamento de produtos. O front-end é desenvolvido com Angular, enquanto o back-end é dividido em duas implementações equivalentes: uma utilizando Spring Boot e gerenciada pelo Tomcat, e outra desenvolvida sem Spring Boot, mas também gerenciada pelo WildFly.
+Este projeto é um sistema de e-commerce para gerenciamento de produtos. O front-end é desenvolvido com Angular, enquanto o back-end é dividido em duas implementações equivalentes: uma utilizando Spring Boot e gerenciada pelo Tomcat, e outra desenvolvida sem Spring Boot, mas também gerenciada pelo WildFly. Embora tenha sido aplicado em casos específicos, o desenvolvimento também incluiu práticas de Test-Driven Development (TDD).
 
 ## Tecnologias Utilizadas
 
