@@ -1,16 +1,21 @@
 # E-Commerce Painel
 
-Este projeto é um sistema de e-commerce para gerenciar o cadastro de produtos. Utiliza Angular para o front-end, Java para o back-end e WildFly como servidor de aplicação.
+Este projeto é um sistema de e-commerce para gerenciamento de produtos. O front-end é desenvolvido com Angular, enquanto o back-end é dividido em duas implementações equivalentes: uma utilizando Spring Boot e gerenciada pelo Tomcat, e outra desenvolvida sem Spring Boot, mas também gerenciada pelo WildFly.
 
 ## Tecnologias Utilizadas
 
 - **Front-end:** Angular
-- **Back-end:** Java
-- **Servidor de Aplicação:** WildFly
-- **Persistência de Dados:** JPA
-- **APIs RESTful:** JAX-RS
-- **Conversão JSON:** Jackson
-- **Banco de Dados:** Oracle Database
+- **Back-end:** Java com Spring Boot
+  - **Framework:** Spring Boot
+  - **Web:** Spring MVC
+  - **Persistência de Dados:** Spring Data JPA
+  - **Banco de Dados:** H2 Database
+ **Back-end:** Java Sem Spring Boot
+   - **Servidor de Aplicação:** WildFly
+   - **Persistência de Dados:** JPA
+   - **APIs RESTful:** JAX-RS
+   - **Conversão JSON:** Jackson
+   - **Banco de Dados:** Oracle Database
 
 ## Requisitos
 
@@ -23,10 +28,16 @@ Antes de começar, certifique-se de ter os seguintes requisitos instalados:
 
 ## Passos para Iniciar
 
-### Back-end
+### Back-end Spring Boot
 
 1. **Instale o Java JDK.**
+2. **Compile e execute o projeto Spring Boot:**
+   - Navegue até o diretório do projeto.
+   - Execute a classe principal `PainelSrvSpringApplication` para iniciar o servidor Spring Boot.
 
+### Back-end WildFly
+
+1. **Instale o Java JDK.**
 2. **Configure o WildFly:**
    - Adicione a configuração do datasource no arquivo `standalone.xml`:
 
@@ -55,7 +66,6 @@ Antes de começar, certifique-se de ter os seguintes requisitos instalados:
      ```
 
 3. **Compile e desplogue o projeto no WildFly.**
-
 4. **Configure o banco de dados:**
    Execute os seguintes comandos SQL para criar as sequências e tabelas necessárias:
 
@@ -94,7 +104,8 @@ Antes de começar, certifique-se de ter os seguintes requisitos instalados:
        ADD CONSTRAINT PRODUTO_FK FOREIGN KEY (PRODUTO_ID)
        REFERENCES PRODUTO (ID)
        NOT DEFERRABLE;
+
 ### Front-end
 Instale as dependências e inicie o servidor de desenvolvimento:
  - npm install
- - ng serve
+ - ng start
