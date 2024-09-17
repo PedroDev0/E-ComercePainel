@@ -1,4 +1,7 @@
+
+server.servlet.context-path: '/painelsrv'
 spring:
+  mvc.servlet.path: '/api'
   jackson:
     date-format: dd/MM/yyyy HH:mm:ss
     time-zone: America/Sao_Paulo
