@@ -106,22 +106,41 @@ public class Produto {
 		}
 
 		if (Objects.nonNull(dto.imagens())) {
-			
-			Set<Integer> dtoImageIds = dto.imagens().stream()
-			        .map(ProdutoImagemDetailsDTO::id)
-			        .collect(Collectors.toSet());
 
-			    this.imagens.removeIf(img -> !dtoImageIds.contains(img.getId()));
+			Set<Integer> dtoImageIds = dto.imagens().stream().map(ProdutoImagemDetailsDTO::id)
+					.collect(Collectors.toSet());
 
-			    dto.imagens().forEach(dtoImg -> {
-			        this.imagens.stream()
-			            .filter(img -> img.getId().equals(dtoImg.id()))
-			            .findFirst()
-			            .ifPresentOrElse(
-			                img -> img.update(dtoImg), 
-			                () -> this.imagens.add(new ProdutoImagem(dtoImg)) 
-			            );
-			    });
+			this.imagens.removeIf(img -> !dtoImageIds.contains(img.getId()));
+
+			dto.imagens().forEach(dtoImg -> {
+				this.imagens.stream().filter(img -> img.getId().equals(dtoImg.id())).findFirst()
+						.ifPresentOrElse(img -> img.update(dtoImg), () -> this.imagens.add(new ProdutoImagem(dtoImg)));
+			});
 		}
+	}
+
+	public void create(ProdutoUpdateDTO dto) {
+
+		if (Objects.nonNull(dto.descricao())) {
+
+			this.descricao = dto.descricao();
+		}
+
+		if (Objects.nonNull(dto.precoCompra())) {
+			this.precoCompra = dto.precoCompra();
+		}
+		if (Objects.nonNull(dto.precoVenda())) {
+			this.precoVenda = dto.precoVenda();
+		}
+		if (Objects.nonNull(dto.imagens())) {
+
+			this.imagens = dto.imagens().stream().map(dtoImg -> {
+				ProdutoImagem img = new ProdutoImagem(dtoImg);
+				img.setProduto(this);
+				return img;
+			}).collect(Collectors.toSet());
+		}
+
+		this.dataCadastro = LocalDateTime.now();
 	}
 }
