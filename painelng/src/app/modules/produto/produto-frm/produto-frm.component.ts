@@ -75,7 +75,7 @@ export class ProdutoFrmComponent implements OnInit {
       this.service.update(this.form.getRawValue()).subscribe(entity => {
         this.form.patchValue(entity);
         this.imagens = entity.imagens;
-        
+
         this.reloadImagens();
         this.util.showInfo("Produto atualizado!");
       });
@@ -96,15 +96,15 @@ export class ProdutoFrmComponent implements OnInit {
       this.util.showWarn("Adicione pelo menos uma imagem!");
       return false;
     }
-    let isPrincipal =  false;
+    let isPrincipal = false;
 
-    this.imagens.forEach(e => { 
-      if( e.principal) {
+    this.imagens.forEach(e => {
+      if (e.principal) {
         isPrincipal = true;
         return;
       }
     });
-    if(!isPrincipal){
+    if (!isPrincipal) {
       this.util.showWarn("Selecione pelo menos uma imagem principal!");
       return isPrincipal;
     }
@@ -119,10 +119,13 @@ export class ProdutoFrmComponent implements OnInit {
     ).then(confirmed => {
       if (confirmed) {
 
-        this.service.delete(this.form.controls.id.getRawValue()).subscribe(deletado => {
-          if (deletado) {
+        this.service.delete(this.form.controls.id.getRawValue()).subscribe({
+          next: () => {
             this.util.showInfo("Produto deletado com sucesso!")
-            this.close(deletado);
+            this.close();
+          },
+          error: (err) => {
+            this.util.showWarn("Erro ao deletar produto cód: " + this.form.controls.id.getRawValue());
           }
         }
         );

@@ -24,11 +24,10 @@ export class ProdutoService {
     return this.http.put<Produto>(API_URL + "/products/update", new ProdutoUpdate(entity));
   }
   create(entity: Produto): Observable<Produto> {
-    console.log(entity);
 
-    return this.http.post<Produto>(API_URL + "/products/create", entity);
+    return this.http.post<Produto>(API_URL + "/products/create", new ProdutoUpdate(entity));
   }
-  delete(pk: number): Observable<boolean> {
-    return this.http.delete<boolean>(API_URL + "/products/delete/" + pk);
+  delete(pk: number): Observable<void> {
+    return this.http.delete<void>(API_URL + "/products/delete/" + pk);
   }
 }
