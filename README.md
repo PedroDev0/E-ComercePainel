@@ -109,3 +109,8 @@ Antes de começar, certifique-se de ter os seguintes requisitos instalados:
 Instale as dependências e inicie o servidor de desenvolvimento:
  - npm install
  - ng start
+
+## Apresentação
+  -Front-end: https://painel-ng.vercel.app/product 
+  -Back-end: https://painel-srv-spring-production.up.railway.app/painelsrv/api/products/all
+ ![Apresentacao do projeto](assets/Apresentacao.gif)
