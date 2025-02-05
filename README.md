@@ -2,6 +2,13 @@
 
 Este projeto é um sistema de e-commerce para gerenciamento de produtos. O front-end é desenvolvido com Angular, enquanto o back-end é dividido em duas implementações equivalentes: uma utilizando Spring Boot e gerenciada pelo Tomcat, e outra desenvolvida sem Spring Boot, mas também gerenciada pelo WildFly. Embora tenha sido aplicado em casos específicos, o desenvolvimento também incluiu práticas de Test-Driven Development (TDD).
 
+![Apresentacao do projeto](assets/Apresentacao.gif)
+
+ ## Deploy
+- [Front-End](https://painel-ng.vercel.app/home)
+- [Back-end](https://painel-srv-spring-production.up.railway.app/painelsrv/api/swagger-ui/index.html)
+
+
 ## Tecnologias Utilizadas
 
 - **Front-end:** Angular
@@ -110,7 +117,4 @@ Instale as dependências e inicie o servidor de desenvolvimento:
  - npm install
  - ng start
 
-## Apresentação
-  -Front-end: https://painel-ng.vercel.app/product 
-  -Back-end: https://painel-srv-spring-production.up.railway.app/painelsrv/api/products/all
- ![Apresentacao do projeto](assets/Apresentacao.gif)
+
